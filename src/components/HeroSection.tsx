@@ -138,8 +138,8 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              style={{ y: leftY, height: "90%" }}
               className="absolute left-0 bottom-0 w-[48%] sm:w-[55%] rounded-t-[100px] sm:rounded-t-[180px] overflow-hidden"
-              style={{ height: "90%" }}
             >
               <div className="absolute inset-0 bg-destructive/50 mix-blend-multiply z-10" />
               <img
