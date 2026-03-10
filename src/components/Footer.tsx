@@ -1,5 +1,10 @@
 const footerLinks = ["Agency", "Career", "Privacy", "Terms"];
-const socialLinks = ["Twitter", "Dribbble", "LinkedIn", "Instagram"];
+const socialLinks = [
+  { name: "Twitter", url: "#" },
+  { name: "Dribbble", url: "#" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/company/vaedraglobal/" },
+  { name: "Instagram", url: "#" },
+];
 
 const Footer = () => {
   return (
