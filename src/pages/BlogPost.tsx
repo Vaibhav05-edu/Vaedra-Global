@@ -53,6 +53,7 @@ const BlogPost = () => {
               <img
                 src={post.image}
                 alt={post.title}
+                loading="lazy"
                 className="w-full h-[300px] md:h-[450px] object-cover"
               />
             </div>
