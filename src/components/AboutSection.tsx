@@ -122,21 +122,21 @@ const AboutSection = () => {
         {/* ===== CTA Circle + Avatar + Bottom Images ===== */}
         <div className="relative mt-8 lg:mt-0">
           {/* Avatar + CTA grouped - button lower-left, avatar to the right leaning on it */}
-          <div className="relative flex justify-center lg:justify-start mb-10 lg:mb-0 lg:min-h-[480px]">
+          <div className="relative flex justify-center lg:justify-start min-h-[320px] md:min-h-[400px] lg:min-h-[480px] mb-16 md:mb-10 lg:mb-0">
             {/* CTA Button - lower left */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="absolute left-4 md:left-8 lg:left-12 bottom-0 z-10"
+              className="absolute left-2 sm:left-4 md:left-8 lg:left-12 bottom-8 md:bottom-0 z-10"
             >
               <a
                 href="#services"
-                className="group relative w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
+                className="group relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
               >
                 <span className="absolute inset-0 rounded-full bg-primary scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
-                <span className="relative z-10 font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
+                <span className="relative z-10 font-display text-sm sm:text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
                   EXPLORE US
                   <br />
                   MORE
@@ -145,19 +145,19 @@ const AboutSection = () => {
               </a>
             </motion.div>
 
-            {/* Avatar - to the right, overlapping the button with his left arm */}
+            {/* Avatar - to the right, overlapping the button */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
-              className="absolute left-28 md:left-36 lg:left-40 -bottom-20 md:-bottom-24 lg:-bottom-28 z-20"
+              className="absolute left-20 sm:left-28 md:left-36 lg:left-40 -bottom-8 sm:-bottom-12 md:-bottom-24 lg:-bottom-28 z-20"
             >
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo leaning"
                 loading="lazy"
-                className="w-72 h-72 md:w-[380px] md:h-[380px] lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+                className="w-56 h-56 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
           </div>
@@ -185,7 +185,7 @@ const AboutSection = () => {
               </div>
 
               {/* Overlapping info card */}
-              <div className="absolute top-0 right-0 lg:-right-6 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
+              <div className="relative mt-4 sm:absolute sm:top-0 sm:right-0 lg:-right-6 bg-card border border-border rounded-xl p-5 sm:p-6 lg:p-8 w-full sm:w-56 md:w-64 lg:w-72 z-10">
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
                     <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
