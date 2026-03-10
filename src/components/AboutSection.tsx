@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import aboutAvatar from "@/assets/about-avatar.png";
 import aboutOffice from "@/assets/about-office.jpg";
@@ -6,9 +7,21 @@ import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
+const springConfig = { stiffness: 50, damping: 20, mass: 0.5 };
+
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const avatarY = useSpring(useTransform(scrollYProgress, [0, 1], [80, -80]), springConfig);
+  const officeY = useSpring(useTransform(scrollYProgress, [0, 1], [60, -40]), springConfig);
+  const cardY = useSpring(useTransform(scrollYProgress, [0, 1], [40, -60]), springConfig);
+  const ctaY = useSpring(useTransform(scrollYProgress, [0, 1], [50, -50]), springConfig);
   return (
-    <section id="about" className="bg-background py-16 sm:py-20 lg:py-28 overflow-hidden">
+    <section ref={sectionRef} id="about" className="bg-background py-16 sm:py-20 lg:py-28 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* ===== TOP: Label + Heading + Geometric shapes ===== */}
         <div className="relative">
@@ -129,6 +142,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              style={{ y: ctaY }}
               className="absolute left-2 sm:left-4 md:left-8 lg:left-12 bottom-8 md:bottom-0 z-10"
             >
               <a
@@ -151,6 +165,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
+              style={{ y: avatarY }}
               className="absolute left-16 sm:left-28 md:left-36 lg:left-40 -bottom-4 sm:-bottom-12 md:-bottom-24 lg:-bottom-28 z-20"
             >
               <img
@@ -175,17 +190,17 @@ const AboutSection = () => {
               transition={{ delay: 0.4 }}
               className="lg:col-span-5 lg:col-start-7 relative lg:-mt-4"
             >
-              <div className="rounded-lg overflow-hidden">
+              <motion.div style={{ y: officeY }} className="rounded-lg overflow-hidden">
                 <img
                   src={aboutOffice}
                   alt="Modern creative office"
                   loading="lazy"
                   className="w-full h-56 sm:h-72 md:h-80 lg:h-[420px] object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Overlapping info card */}
-              <div className="relative mt-4 sm:absolute sm:top-0 sm:right-0 lg:-right-6 bg-card border border-border rounded-xl p-4 sm:p-6 lg:p-8 w-full sm:w-56 md:w-64 lg:w-72 z-10">
+              <motion.div style={{ y: cardY }} className="relative mt-4 sm:absolute sm:top-0 sm:right-0 lg:-right-6 bg-card border border-border rounded-xl p-4 sm:p-6 lg:p-8 w-full sm:w-56 md:w-64 lg:w-72 z-10">
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
                     <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -204,7 +219,7 @@ const AboutSection = () => {
                 <p className="font-display text-sm uppercase tracking-wider text-foreground font-semibold mt-2">
                   FASTER SERVICE
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
