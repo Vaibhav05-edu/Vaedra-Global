@@ -1,28 +1,22 @@
+import logoOracle from "@/assets/logo-oracle.png";
+import logoIbm from "@/assets/logo-ibm.png";
+import logoIntel from "@/assets/logo-intel.png";
+import logoDell from "@/assets/logo-dell.png";
+import logoHp from "@/assets/logo-hp.png";
+import logoVmware from "@/assets/logo-vmware.png";
+import logoMicrosoft from "@/assets/logo-microsoft.png";
+import logoApple from "@/assets/logo-apple.png";
+
 const brands = [
-  "Mother's",
-  "MICROWAVE",
-  "smart education",
-  "FITNESS",
-  "natural",
-  "THE BEST",
+  { src: logoDell, alt: "Dell" },
+  { src: logoOracle, alt: "Oracle" },
+  { src: logoIbm, alt: "IBM" },
+  { src: logoIntel, alt: "Intel" },
+  { src: logoHp, alt: "HP" },
+  { src: logoVmware, alt: "VMware" },
+  { src: logoMicrosoft, alt: "Microsoft" },
+  { src: logoApple, alt: "Apple" },
 ];
-
-const BrandLogo = ({ name }: { name: string }) => {
-  const styles: Record<string, string> = {
-    "Mother's": "font-serif italic text-[1.7rem] lg:text-[2.2rem] tracking-wide",
-    "MICROWAVE": "font-display text-[1.5rem] lg:text-[2rem] uppercase tracking-[0.3em] font-light",
-    "smart education": "font-body text-[1.3rem] lg:text-[1.7rem] tracking-wide font-light",
-    "FITNESS": "font-display text-[1.8rem] lg:text-[2.3rem] uppercase tracking-[0.25em] font-bold",
-    "natural": "font-serif italic text-[1.8rem] lg:text-[2.3rem] tracking-wide font-normal",
-    "THE BEST": "font-display text-[1.3rem] lg:text-[1.7rem] uppercase tracking-[0.2em] font-semibold",
-  };
-
-  return (
-    <span className={`text-muted-foreground/40 hover:text-muted-foreground/60 transition-colors whitespace-nowrap select-none ${styles[name] || "font-display text-2xl uppercase tracking-wider"}`}>
-      {name}
-    </span>
-  );
-};
 
 const BrandSlider = () => {
   return (
@@ -38,11 +32,18 @@ const BrandSlider = () => {
       </div>
 
       {/* Logo marquee */}
-      <div className="relative z-[2] overflow-hidden py-10 lg:py-14">
+      <div className="relative z-[2] overflow-hidden py-10 lg:py-12">
         <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center whitespace-nowrap">
           {[...brands, ...brands].map((brand, i) => (
-            <div key={i} className="flex-shrink-0 px-12 lg:px-16 flex items-center justify-center">
-              <BrandLogo name={brand} />
+            <div
+              key={i}
+              className="flex-shrink-0 w-[160px] lg:w-[200px] xl:w-[220px] mx-8 lg:mx-12 flex items-center justify-center"
+            >
+              <img
+                src={brand.src}
+                alt={brand.alt}
+                className="max-h-[50px] lg:max-h-[60px] xl:max-h-[70px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
+              />
             </div>
           ))}
         </div>
