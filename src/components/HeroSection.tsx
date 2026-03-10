@@ -48,7 +48,7 @@ const HeroSection = () => {
               </div>
 
               {/* AND */}
-              <span className="font-display text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
+              <span className="font-display text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
                 AND
               </span>
 
