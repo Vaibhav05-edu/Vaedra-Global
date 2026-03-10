@@ -151,7 +151,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
-              className="absolute left-28 md:left-36 lg:left-40 bottom-0 z-20"
+              className="absolute left-28 md:left-36 lg:left-40 -bottom-10 md:-bottom-12 lg:-bottom-14 z-20"
             >
               <img
                 src={aboutAvatar}
