@@ -8,44 +8,44 @@ import {
 
 const faqs = [
   {
-    question: "How does the agile manifesto address planning?",
+    question: "What services does your agency offer?",
     answer:
-      "The Agile Manifesto values responding to change over following a plan. While planning is important, Agile emphasizes adaptability and iterative development to deliver value continuously.",
+      "We offer a full range of digital services including web design & development, branding & identity, UI/UX design, mobile app development, digital marketing, and SEO optimization.",
   },
   {
-    question: "Reflects your audience's need?",
+    question: "How long does a typical project take?",
     answer:
-      "Understanding your audience is key to delivering impactful digital solutions. We conduct thorough research and user testing to ensure every project aligns with your target audience's expectations.",
+      "Project timelines vary based on scope and complexity. A standard website takes 4–8 weeks, while larger projects like custom web applications or full brand overhauls may take 3–6 months.",
   },
   {
-    question: "What is a statement of work in project management?",
+    question: "What is your design and development process?",
     answer:
-      "A Statement of Work (SOW) is a formal document that defines project activities, deliverables, timelines, and costs. It serves as the foundation for project execution and stakeholder alignment.",
+      "We follow a structured process: Discovery & Research → Strategy & Planning → Design & Prototyping → Development → Testing & QA → Launch & Ongoing Support. We keep you involved at every stage.",
   },
   {
-    question: "When is an FAQ page appropriate?",
+    question: "How much does a project cost?",
     answer:
-      "An FAQ page is appropriate when your audience has recurring questions about your products, services, or processes. It reduces support load and improves user experience by providing instant answers.",
+      "Every project is unique. We provide custom quotes based on your requirements, goals, and timeline. Contact us for a free consultation and detailed estimate.",
   },
   {
-    question: "What questions belong on an FAQ page?",
+    question: "Do you offer ongoing support after launch?",
     answer:
-      "Include questions that are frequently asked by customers, address common concerns, clarify your services, and help users make informed decisions about working with you.",
+      "Yes, we offer maintenance and support packages that include performance monitoring, security updates, content updates, and technical support to keep your site running smoothly.",
   },
   {
-    question: "Align with your brand look and feel?",
+    question: "Can you work with our existing brand guidelines?",
     answer:
-      "We ensure every design element aligns with your brand identity, from color palettes and typography to tone of voice and visual style, creating a cohesive and memorable experience.",
+      "Absolutely. We seamlessly integrate with your existing brand identity, ensuring consistency across all digital touchpoints while elevating the overall design quality.",
   },
   {
-    question: "How to become an agile project manager?",
+    question: "What technologies do you use?",
     answer:
-      "Start by understanding Agile methodologies like Scrum and Kanban. Gain certifications such as CSM or PMI-ACP, build hands-on experience, and continuously improve your leadership skills.",
+      "We work with modern technologies including React, TypeScript, Next.js, Tailwind CSS, Node.js, and various CMS platforms. We choose the best stack based on your project's needs.",
   },
   {
-    question: "How to manage agile teams?",
+    question: "How do we get started?",
     answer:
-      "Effective Agile team management involves fostering collaboration, maintaining transparency, conducting regular retrospectives, and empowering team members to make decisions and deliver value.",
+      "Simply reach out through our contact form or email. We'll schedule a free discovery call to discuss your project goals, timeline, and budget, then provide a detailed proposal.",
   },
 ];
 
