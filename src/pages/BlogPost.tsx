@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/lib/blogPosts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -70,6 +70,51 @@ const BlogPost = () => {
           </motion.div>
         </div>
       </article>
+      {/* Related Posts */}
+      <section className="bg-secondary py-24">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <h2 className="font-display text-3xl md:text-5xl font-bold uppercase text-foreground mb-12">
+            Related Articles
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {blogPosts
+              .filter((p) => p.slug !== post.slug)
+              .map((related, i) => (
+                <motion.article
+                  key={related.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group bg-card rounded-2xl overflow-hidden border border-border"
+                >
+                  <Link to={`/blog/${related.slug}`}>
+                    <div className="aspect-[16/9] overflow-hidden">
+                      <img
+                        src={related.image}
+                        alt={related.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="font-body text-xs text-muted-foreground">{related.date}</span>
+                        <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+                        <span className="font-body text-xs text-muted-foreground">{related.readTime}</span>
+                      </div>
+                      <h3 className="font-display text-xl uppercase font-semibold text-foreground leading-tight group-hover:text-highlight transition-colors mb-2">
+                        {related.title}
+                      </h3>
+                      <p className="font-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                        {related.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   );
