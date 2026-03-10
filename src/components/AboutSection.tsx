@@ -157,7 +157,7 @@ const AboutSection = () => {
               <img
                 src={aboutAvatar}
                 alt="Animated avatar character"
-                className="w-full h-56 md:h-64 lg:h-72 object-contain mix-blend-multiply dark:mix-blend-screen drop-shadow-xl"
+                className="w-full h-56 md:h-64 lg:h-72 object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
 
