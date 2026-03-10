@@ -10,16 +10,16 @@ import team3 from "@/assets/team-3.jpg";
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen bg-background pt-20 overflow-hidden">
-      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-10 lg:pt-16">
-        <div className="flex flex-col lg:flex-row">
+      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-8 lg:pt-14">
+        <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
-          <div className="relative z-10 flex-1 max-w-[750px]">
+          <div className="relative z-10 flex-1 min-w-0">
             {/* WE ARE / SKILLED IN */}
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display font-bold uppercase leading-[0.88] tracking-tight text-foreground text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[9rem] xl:text-[11rem]"
+              className="font-display font-bold uppercase leading-[0.88] tracking-tight text-foreground text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem]"
             >
               WE ARE
               <br />
@@ -31,14 +31,14 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex items-end gap-3 md:gap-5 mt-1"
+              className="flex items-end gap-3 md:gap-4 mt-0"
             >
               {/* WEB DESIGN block */}
-              <div className="flex-shrink-0 pb-1">
-                <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold uppercase leading-[0.95] text-foreground block">
+              <div className="flex-shrink-0 pb-2">
+                <span className="font-display text-2xl sm:text-3xl md:text-[2.2rem] font-bold uppercase leading-[0.95] text-foreground block">
                   WEB
                 </span>
-                <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold uppercase leading-[0.95] text-foreground block">
+                <span className="font-display text-2xl sm:text-3xl md:text-[2.2rem] font-bold uppercase leading-[0.95] text-foreground block">
                   DESIGN
                 </span>
                 <div className="flex gap-1.5 mt-2">
@@ -48,14 +48,14 @@ const HeroSection = () => {
               </div>
 
               {/* AND */}
-              <span className="font-display text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[9rem] xl:text-[11rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
+              <span className="font-display text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
                 AND
               </span>
 
               {/* Green development circle */}
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mb-2 md:mb-4">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-[6.5rem] md:h-[6.5rem] rounded-full bg-primary flex items-center justify-center flex-shrink-0 mb-3 md:mb-5">
                 <span
-                  className="font-display text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.15em] text-primary-foreground font-medium"
+                  className="font-display text-[10px] sm:text-xs md:text-[13px] uppercase tracking-[0.15em] text-primary-foreground font-medium"
                   style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
                 >
                   development
@@ -63,11 +63,11 @@ const HeroSection = () => {
               </div>
 
               {/* 3D Avatar circle */}
-              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-foreground overflow-hidden flex items-center justify-center flex-shrink-0 mb-2 md:mb-4">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-[6.5rem] md:h-[6.5rem] rounded-full bg-foreground overflow-hidden flex items-center justify-center flex-shrink-0 mb-3 md:mb-5">
                 <img
                   src={heroAvatar}
                   alt="3D Avatar"
-                  className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain"
+                  className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain"
                 />
               </div>
             </motion.div>
@@ -77,9 +77,8 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex items-start gap-6 mt-20 md:mt-28 lg:mt-32 ml-8 md:ml-20 lg:ml-32"
+              className="flex items-start gap-6 mt-16 md:mt-20 lg:mt-24 ml-8 md:ml-16 lg:ml-28"
             >
-              {/* Scroll down arrow */}
               <a
                 href="#about"
                 className="flex items-center justify-center w-12 h-12 rounded-full border border-muted-foreground/40 text-muted-foreground hover:text-foreground hover:border-foreground transition-colors flex-shrink-0"
@@ -87,9 +86,8 @@ const HeroSection = () => {
                 <ArrowDown className="w-5 h-5" />
               </a>
 
-              {/* Description + CTA */}
               <div className="max-w-[340px]">
-                <p className="font-body text-[15px] text-muted-foreground leading-[1.7]">
+                <p className="font-body text-[15px] text-muted-foreground leading-[1.75]">
                   We are a full-service digital agency that builds fascinating user experiences. our team creates and exceptional UI design and functionality.
                 </p>
                 <a
@@ -108,11 +106,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="relative flex-shrink-0 w-full lg:w-[480px] xl:w-[540px] h-[550px] md:h-[650px] lg:h-[750px] mt-10 lg:mt-0 lg:ml-auto"
+            className="relative flex-shrink-0 w-full lg:w-[420px] xl:w-[480px] h-[500px] md:h-[600px] lg:h-[700px] mt-10 lg:mt-0"
           >
-            {/* Decorative hand-drawn scribble */}
+            {/* Decorative scribble */}
             <svg
-              className="absolute -left-20 top-0 w-20 h-20 text-foreground hidden lg:block"
+              className="absolute -left-16 top-2 w-16 h-16 text-foreground hidden lg:block"
               viewBox="0 0 80 80"
               fill="none"
               stroke="currentColor"
@@ -126,8 +124,8 @@ const HeroSection = () => {
 
             {/* Red-tinted tall capsule image (left, behind) */}
             <div
-              className="absolute left-0 bottom-0 w-[52%] rounded-t-[200px] overflow-hidden"
-              style={{ height: "88%" }}
+              className="absolute left-0 bottom-0 w-[55%] rounded-t-[180px] overflow-hidden"
+              style={{ height: "90%" }}
             >
               <div className="absolute inset-0 bg-destructive/50 mix-blend-multiply z-10" />
               <img
@@ -137,10 +135,10 @@ const HeroSection = () => {
               />
             </div>
 
-            {/* Man with tablet - rounded bottom capsule (right, front) */}
+            {/* Man with tablet - rounded bottom capsule (right, overlapping) */}
             <div
-              className="absolute right-0 top-0 w-[55%] rounded-b-[200px] overflow-hidden z-[5]"
-              style={{ height: "72%" }}
+              className="absolute right-0 top-0 w-[58%] rounded-b-[180px] overflow-hidden z-[5]"
+              style={{ height: "75%" }}
             >
               <img
                 src={heroPerson2}
@@ -149,57 +147,41 @@ const HeroSection = () => {
               />
             </div>
 
-            {/* WATCH VIDEO play button — positioned at intersection */}
-            <div className="absolute z-20 flex items-center gap-3" style={{ right: "0", top: "48%" }}>
-              <button className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-foreground flex items-center justify-center hover:scale-105 transition-transform shadow-lg">
+            {/* WATCH VIDEO play button */}
+            <div className="absolute z-20 flex items-center gap-3" style={{ right: "5%", top: "50%" }}>
+              <button className="w-14 h-14 rounded-full bg-foreground flex items-center justify-center hover:scale-105 transition-transform">
                 <Play className="w-5 h-5 text-background fill-background ml-0.5" />
               </button>
               <div className="text-foreground">
-                <span className="font-display text-xs md:text-sm uppercase font-semibold block leading-tight tracking-wider">
-                  WATCH
-                </span>
-                <span className="font-display text-xs md:text-sm uppercase font-semibold block leading-tight tracking-wider">
-                  VIDEO
-                </span>
+                <span className="font-display text-xs uppercase font-semibold block leading-tight tracking-wider">WATCH</span>
+                <span className="font-display text-xs uppercase font-semibold block leading-tight tracking-wider">VIDEO</span>
               </div>
             </div>
 
             {/* Diagonal arrow button */}
-            <div className="absolute z-20" style={{ right: "0", bottom: "28%" }}>
+            <div className="absolute z-20" style={{ right: "5%", bottom: "32%" }}>
               <a
                 href="#about"
-                className="w-14 h-14 rounded-full border border-muted-foreground/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+                className="w-12 h-12 rounded-full border border-muted-foreground/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
               >
-                <ArrowDownRight className="w-5 h-5" />
+                <ArrowDownRight className="w-4 h-4" />
               </a>
             </div>
 
-            {/* Customer avatars stack + text */}
-            <div className="absolute z-20" style={{ right: "0", bottom: "8%" }}>
-              <div className="flex items-center -space-x-3 mb-3">
-                <img
-                  src={team1}
-                  alt=""
-                  className="w-10 h-10 rounded-full border-2 border-background object-cover"
-                />
-                <img
-                  src={team2}
-                  alt=""
-                  className="w-10 h-10 rounded-full border-2 border-background object-cover"
-                />
-                <img
-                  src={team3}
-                  alt=""
-                  className="w-10 h-10 rounded-full border-2 border-background object-cover"
-                />
-                <div className="w-10 h-10 rounded-full border-2 border-background bg-secondary flex items-center justify-center">
-                  <span className="text-foreground text-sm font-display">+</span>
+            {/* Customer avatars + text */}
+            <div className="absolute z-20" style={{ right: "5%", bottom: "8%" }}>
+              <div className="flex items-center -space-x-3 mb-2">
+                <img src={team1} alt="" className="w-9 h-9 rounded-full border-2 border-background object-cover" />
+                <img src={team2} alt="" className="w-9 h-9 rounded-full border-2 border-background object-cover" />
+                <img src={team3} alt="" className="w-9 h-9 rounded-full border-2 border-background object-cover" />
+                <div className="w-9 h-9 rounded-full border-2 border-background bg-secondary flex items-center justify-center">
+                  <span className="text-foreground text-xs font-display">+</span>
                 </div>
               </div>
-              <p className="text-foreground font-display text-sm uppercase tracking-wide">
+              <p className="text-foreground font-display text-xs uppercase tracking-wide">
                 We have <span className="text-highlight">18k+</span> customers
               </p>
-              <p className="text-foreground font-display text-sm uppercase tracking-wide">
+              <p className="text-foreground font-display text-xs uppercase tracking-wide">
                 word-wide
               </p>
             </div>
