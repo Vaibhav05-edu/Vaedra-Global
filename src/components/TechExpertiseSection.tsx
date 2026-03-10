@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Globe, Atom, Hexagon, Zap, Link2 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const technologies = [
   { icon: Globe, name: "WORDPRESS" },
@@ -9,11 +10,12 @@ const technologies = [
   { icon: Link2, name: "REDUX" },
 ];
 
-const RING_SIZE = 180; // px
-const OVERLAP = 40; // px overlap between rings
-
 const TechExpertiseSection = () => {
-  const totalWidth = technologies.length * RING_SIZE - (technologies.length - 1) * OVERLAP;
+  const isMobile = useIsMobile();
+  const ringSize = isMobile ? 90 : 180;
+  const overlap = isMobile ? 20 : 40;
+  const iconSize = isMobile ? "w-8 h-8" : "w-16 h-16 md:w-20 md:h-20";
+  const totalWidth = technologies.length * ringSize - (technologies.length - 1) * overlap;
 
   return (
     <section className="bg-[hsl(0,0%,10%)] py-20 lg:py-28 overflow-hidden">
@@ -22,7 +24,7 @@ const TechExpertiseSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-body text-center text-foreground text-lg md:text-xl mb-16 italic"
+          className="font-body text-center text-foreground text-base md:text-xl mb-10 md:mb-16 italic"
         >
           Our Vaedra Global Technology Expertise includes
         </motion.p>
@@ -30,10 +32,10 @@ const TechExpertiseSection = () => {
         <div className="flex justify-center">
           <div
             className="relative"
-            style={{ width: totalWidth, height: RING_SIZE + 60 }}
+            style={{ width: totalWidth, height: ringSize + (isMobile ? 36 : 60) }}
           >
             {technologies.map((tech, i) => {
-              const left = i * (RING_SIZE - OVERLAP);
+              const left = i * (ringSize - overlap);
               return (
                 <motion.div
                   key={tech.name}
@@ -42,15 +44,15 @@ const TechExpertiseSection = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   className="absolute flex flex-col items-center"
-                  style={{ left, width: RING_SIZE }}
+                  style={{ left, width: ringSize }}
                 >
                   <div
                     className="rounded-full border border-foreground/20 flex items-center justify-center"
-                    style={{ width: RING_SIZE, height: RING_SIZE }}
+                    style={{ width: ringSize, height: ringSize }}
                   >
-                    <tech.icon className="w-16 h-16 md:w-20 md:h-20 text-foreground" strokeWidth={1.2} />
+                    <tech.icon className={`${iconSize} text-foreground`} strokeWidth={1.2} />
                   </div>
-                  <span className="font-display text-sm font-bold uppercase tracking-wider text-foreground mt-4 whitespace-nowrap">
+                  <span className="font-display text-[10px] md:text-sm font-bold uppercase tracking-wider text-foreground mt-2 md:mt-4 whitespace-nowrap">
                     {tech.name}
                   </span>
                 </motion.div>
