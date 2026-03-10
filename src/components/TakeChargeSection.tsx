@@ -67,7 +67,7 @@ const TakeChargeSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20 bg-primary"
+            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20 bg-primary text-left"
           >
             TAKE CHARGE STEERING
             <br />
