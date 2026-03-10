@@ -1,5 +1,10 @@
 const footerLinks = ["Agency", "Career", "Privacy", "Terms"];
-const socialLinks = ["Twitter", "Dribbble", "LinkedIn", "Instagram"];
+const socialLinks = [
+  { name: "Twitter", url: "#" },
+  { name: "Dribbble", url: "#" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/company/vaedraglobal/" },
+  { name: "Instagram", url: "#" },
+];
 
 const Footer = () => {
   return (
@@ -25,12 +30,14 @@ const Footer = () => {
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
               <a
-                key={social}
-                href="#"
+                key={social.name}
+                href={social.url}
+                target={social.url !== "#" ? "_blank" : undefined}
+                rel={social.url !== "#" ? "noopener noreferrer" : undefined}
                 className="font-body text-sm text-foreground/60 hover:text-highlight transition-colors"
-                aria-label={social}
+                aria-label={social.name}
               >
-                {social}
+                {social.name}
               </a>
             ))}
           </div>
