@@ -42,33 +42,33 @@ const teams = [
 
 const TakeChargeSection = () => {
   return (
-    <section className="bg-primary text-primary-foreground py-20 lg:py-28 relative overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12 xl:px-16">
+    <section className="bg-primary text-primary-foreground py-16 sm:py-20 lg:py-28 relative overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Heading with avatar peeking behind it */}
-        <div className="relative text-center pt-16 md:pt-20">
-          {/* Avatar peeking from behind the text - only head visible */}
+        <div className="relative text-center pt-12 sm:pt-16 md:pt-20">
+          {/* Avatar peeking from behind the text */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-            className="absolute left-1/2 -translate-x-1/2 -top-10 md:-top-12 lg:-top-14 z-30 pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 -top-6 sm:-top-10 md:-top-12 lg:-top-14 z-30 pointer-events-none"
           >
             <img
               src={avatarHead}
               alt="Avatar peeking"
               loading="lazy"
-              className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain drop-shadow-lg"
+              className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain drop-shadow-lg"
             />
           </motion.div>
 
-          {/* Heading - clips the avatar so only head peeks out */}
+          {/* Heading */}
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20 bg-primary text-left"
+            className="font-display text-[2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20 bg-primary text-left"
           >
             TAKE CHARGE STEERING
             <br />
@@ -76,13 +76,13 @@ const TakeChargeSection = () => {
           </motion.h2>
         </div>
 
-        {/* Description - center-right aligned like reference */}
+        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25 }}
-          className="font-body text-base md:text-lg max-w-sm md:ml-[45%] mt-10 mb-16 lg:mb-24 leading-relaxed"
+          className="font-body text-sm sm:text-base md:text-lg max-w-sm md:ml-[45%] mt-8 sm:mt-10 mb-12 sm:mb-16 lg:mb-24 leading-relaxed"
         >
           Our ability to combine expertise and systems thinking is what fuels us
           as a team.
@@ -97,11 +97,11 @@ const TakeChargeSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              className="px-6 lg:px-10 py-8 md:py-0 group cursor-pointer"
+              className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-0 group cursor-pointer"
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <div className="mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">{team.icon}</div>
-              <h3 className="font-display text-xl md:text-2xl font-bold uppercase leading-tight whitespace-pre-line mb-4 transition-colors duration-300 group-hover:text-background">
+              <div className="mb-4 sm:mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">{team.icon}</div>
+              <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold uppercase leading-tight whitespace-pre-line mb-3 sm:mb-4 transition-colors duration-300 group-hover:text-background">
                 {team.title}
               </h3>
               <p className="font-body text-sm md:text-base leading-relaxed opacity-80 transition-opacity duration-300 group-hover:opacity-100">

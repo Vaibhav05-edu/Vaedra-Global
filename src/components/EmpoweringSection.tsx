@@ -11,15 +11,15 @@ const skills = [
 
 const EmpoweringSection = () => {
   return (
-    <section className="bg-[hsl(0,0%,5%)] py-24 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12 xl:px-16">
+    <section className="bg-[hsl(0,0%,5%)] py-16 sm:py-24 lg:py-32 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Top: Heading + description */}
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-16 lg:mb-20">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground max-w-2xl"
+            className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground max-w-2xl"
           >
             EMPOWERING SKILLS
             <br />
@@ -37,9 +37,9 @@ const EmpoweringSection = () => {
         </div>
 
         {/* Content: Skills list + Images */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16">
           {/* Left: Skills with vertical line */}
-          <div className="relative pl-8 border-l border-foreground/20">
+          <div className="relative pl-6 sm:pl-8 border-l border-foreground/20">
             {skills.map((skill, i) => (
               <motion.div
                 key={skill.title}
@@ -47,13 +47,13 @@ const EmpoweringSection = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="mb-12 last:mb-0 flex items-start gap-5"
+                className="mb-10 sm:mb-12 last:mb-0 flex items-start gap-4 sm:gap-5"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-highlight/15 border border-highlight/30 flex items-center justify-center text-highlight">
-                  <skill.icon className="w-6 h-6" />
+                <div className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-highlight/15 border border-highlight/30 flex items-center justify-center text-highlight">
+                  <skill.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl md:text-3xl font-bold uppercase text-foreground mb-2">
+                  <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold uppercase text-foreground mb-2">
                     {skill.title}
                   </h3>
                   <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-sm">
@@ -70,21 +70,21 @@ const EmpoweringSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative min-h-[400px] lg:min-h-[500px]"
+            className="relative min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]"
           >
             {/* Chart card */}
-            <div className="absolute top-0 left-0 w-64 md:w-72 bg-muted/90 backdrop-blur-sm rounded-xl p-5 z-10 shadow-2xl">
-              <div className="flex items-center justify-between mb-4">
+            <div className="absolute top-0 left-0 w-56 sm:w-64 md:w-72 bg-muted/90 backdrop-blur-sm rounded-xl p-4 sm:p-5 z-10 shadow-2xl">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-highlight/20 flex items-center justify-center">
                     <span className="text-highlight text-xs">✦</span>
                   </div>
-                  <span className="font-body text-sm text-foreground font-medium">Weekly dinamycs</span>
+                  <span className="font-body text-xs sm:text-sm text-foreground font-medium">Weekly dinamycs</span>
                 </div>
                 <span className="text-foreground/40 text-lg">•••</span>
               </div>
               {/* Bar chart */}
-              <div className="flex items-end gap-1.5 h-28 mb-3">
+              <div className="flex items-end gap-1 sm:gap-1.5 h-20 sm:h-28 mb-3">
                 {[45, 65, 30, 80, 55, 70, 40, 90, 60, 75, 50, 85].map((h, i) => (
                   <div
                     key={i}
@@ -105,7 +105,7 @@ const EmpoweringSection = () => {
             </div>
 
             {/* Team photo */}
-            <div className="absolute top-16 right-0 left-20 md:left-28 bottom-0 rounded-xl overflow-hidden">
+            <div className="absolute top-12 sm:top-16 right-0 left-12 sm:left-20 md:left-28 bottom-0 rounded-xl overflow-hidden">
               <img
                 src={aboutTeamCollab}
                 alt="Team collaboration"

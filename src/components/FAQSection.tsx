@@ -51,15 +51,15 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="bg-background py-24 lg:py-32">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-16">
+    <section className="bg-background py-16 sm:py-24 lg:py-32">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 sm:gap-12 lg:gap-16">
           <div>
             <motion.h2
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground"
+              className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground"
             >
               Frequently
               <br />
@@ -72,7 +72,7 @@ const FAQSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="font-body text-sm text-muted-foreground max-w-xs leading-relaxed mt-6"
+              className="font-body text-sm text-muted-foreground max-w-xs leading-relaxed mt-4 sm:mt-6"
             >
               Frequently asked question (FAQ) pages to find answers.
             </motion.p>
@@ -91,7 +91,7 @@ const FAQSection = () => {
                   value={`item-${index}`}
                   className="border-b border-border"
                 >
-                  <AccordionTrigger className="font-display text-base md:text-lg uppercase font-semibold text-foreground hover:no-underline py-6">
+                  <AccordionTrigger className="font-display text-sm sm:text-base md:text-lg uppercase font-semibold text-foreground hover:no-underline py-4 sm:py-6 text-left">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="font-body text-muted-foreground leading-relaxed text-sm">

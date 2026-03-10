@@ -17,10 +17,10 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/90 backdrop-blur-md border-b border-border" : "bg-transparent border-b border-transparent"}`}>
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+      <div className="container mx-auto flex items-center justify-between py-3 sm:py-4 px-4 sm:px-6">
         <a href="#" className="flex items-center gap-2">
-          <img src={logo} alt="Vaedra Global" className="w-9 h-9 object-contain" />
-          <span className="font-display text-3xl font-bold uppercase tracking-wider text-foreground">Vaedra Global</span>
+          <img src={logo} alt="Vaedra Global" className="w-7 h-7 sm:w-9 sm:h-9 object-contain" />
+          <span className="font-display text-xl sm:text-3xl font-bold uppercase tracking-wider text-foreground">Vaedra Global</span>
         </a>
 
         {/* Desktop Nav */}
@@ -36,7 +36,7 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <a
             href="https://cal.com/vaedra-global-agency"
             target="_blank"
@@ -73,7 +73,7 @@ const Header = () => {
                   key={link}
                   href={`#${link.toLowerCase()}`}
                   onClick={() => setIsOpen(false)}
-                  className="font-display text-xl uppercase tracking-wide text-foreground/80 hover:text-foreground px-6 py-3 transition-colors hover:bg-secondary"
+                  className="font-display text-lg sm:text-xl uppercase tracking-wide text-foreground/80 hover:text-foreground px-6 py-3 transition-colors hover:bg-secondary"
                 >
                   {link}
                 </a>
@@ -83,7 +83,7 @@ const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
-                className="font-display text-xl uppercase tracking-wide text-primary px-6 py-3 transition-colors hover:bg-secondary"
+                className="font-display text-lg sm:text-xl uppercase tracking-wide text-primary px-6 py-3 transition-colors hover:bg-secondary"
               >
                 Book a Call
               </a>

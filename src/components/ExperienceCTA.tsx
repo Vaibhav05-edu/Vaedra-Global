@@ -3,11 +3,11 @@ import { ArrowRight } from "lucide-react";
 
 const ExperienceCTA = () => {
   return (
-    <section className="bg-background py-8 lg:py-12">
-      <div className="container mx-auto px-6">
-        <div className="relative bg-card rounded-2xl overflow-hidden min-h-[400px] md:min-h-[480px] flex flex-col items-center justify-center px-8 py-20">
+    <section className="bg-background py-6 sm:py-8 lg:py-12">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="relative bg-card rounded-2xl overflow-hidden min-h-[320px] sm:min-h-[400px] md:min-h-[480px] flex flex-col items-center justify-center px-4 sm:px-8 py-14 sm:py-20">
           {/* Decorative neon ribbon */}
-          <div className="absolute top-0 right-0 w-[300px] md:w-[450px] h-[400px] md:h-[500px] pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[200px] sm:w-[300px] md:w-[450px] h-[300px] sm:h-[400px] md:h-[500px] pointer-events-none overflow-hidden">
             <svg
               viewBox="0 0 450 500"
               fill="none"
@@ -38,7 +38,7 @@ const ExperienceCTA = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground text-center relative z-10 max-w-4xl"
+            className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground text-center relative z-10 max-w-4xl"
           >
             Let's start your
             <br />
@@ -53,7 +53,7 @@ const ExperienceCTA = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative z-10 mt-10 inline-flex items-center gap-3 font-display text-sm uppercase tracking-wider text-foreground border-b-2 border-foreground pb-2 hover:text-primary hover:border-primary transition-colors"
+            className="relative z-10 mt-8 sm:mt-10 inline-flex items-center gap-3 font-display text-xs sm:text-sm uppercase tracking-wider text-foreground border-b-2 border-foreground pb-2 hover:text-primary hover:border-primary transition-colors"
           >
             Let's get in touch
             <ArrowRight className="w-4 h-4" />
