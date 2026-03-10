@@ -85,9 +85,9 @@ const AboutSection = () => {
             {/* Avatars */}
             <div>
               <div className="flex -space-x-3 mb-4">
-                <img src={team1} alt="Team member 1" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
-                <img src={team2} alt="Team member 2" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
-                <img src={team3} alt="Team member 3" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team1} alt="Team member 1" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team2} alt="Team member 2" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team3} alt="Team member 3" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
               </div>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
                 happy
