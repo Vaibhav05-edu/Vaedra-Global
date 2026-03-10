@@ -98,10 +98,13 @@ const PortfolioSection = () => {
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
           <div className="relative flex items-center justify-center">
             <ProgressRing progress={scrollProgress} />
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-primary flex items-center justify-center">
+            <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-primary flex flex-col items-center justify-center">
               <h2 className="font-display text-3xl md:text-4xl font-bold uppercase text-primary-foreground tracking-tight text-center">
                 Case Study
               </h2>
+              <span className="font-body text-lg text-primary-foreground/70 mt-1">
+                {Math.round(scrollProgress * 100)}%
+              </span>
             </div>
           </div>
         </div>
