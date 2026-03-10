@@ -7,7 +7,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "CEO, TechStart",
     feedback:
-      "Working with Arolax transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
+      "Working with Vaedra Global transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
     rating: 5,
   },
   {
