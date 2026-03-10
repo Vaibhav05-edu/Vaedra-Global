@@ -150,7 +150,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="lg:col-span-4 lg:col-start-1 lg:mt-20"
+              className="lg:col-span-4 lg:col-start-1 lg:mt-28"
             >
               <div className="rounded-lg overflow-hidden">
                 <img
