@@ -9,7 +9,7 @@ import EmpoweringSection from "@/components/EmpoweringSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import FullWidthImage from "@/components/FullWidthImage";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import TeamSection from "@/components/TeamSection";
+
 import BlogSection from "@/components/BlogSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -28,7 +28,7 @@ const Index = () => {
       <ServicesSection />
       <FullWidthImage />
       <TestimonialsSection />
-      <TeamSection />
+      
       <BlogSection />
       <CTASection />
       <Footer />
