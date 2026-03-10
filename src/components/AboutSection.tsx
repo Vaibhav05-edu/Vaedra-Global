@@ -21,7 +21,7 @@ const AboutSection = () => {
   const cardY = useSpring(useTransform(scrollYProgress, [0, 1], [40, -60]), springConfig);
   const ctaY = useSpring(useTransform(scrollYProgress, [0, 1], [50, -50]), springConfig);
   return (
-    <section id="about" className="bg-background py-16 sm:py-20 lg:py-28 overflow-hidden">
+    <section ref={sectionRef} id="about" className="bg-background py-16 sm:py-20 lg:py-28 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* ===== TOP: Label + Heading + Geometric shapes ===== */}
         <div className="relative">
