@@ -123,7 +123,10 @@ const HeroSection = () => {
             </svg>
 
             {/* Red-tinted tall capsule image (left, behind) */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
               className="absolute left-0 bottom-0 w-[48%] sm:w-[55%] rounded-t-[100px] sm:rounded-t-[180px] overflow-hidden"
               style={{ height: "90%" }}
             >
@@ -133,10 +136,13 @@ const HeroSection = () => {
                 alt="Team member"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </motion.div>
 
             {/* Man with tablet - rounded bottom capsule (right, overlapping) */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: -30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
               className="absolute right-0 top-0 w-[55%] sm:w-[58%] rounded-b-[100px] sm:rounded-b-[180px] overflow-hidden z-[5]"
               style={{ height: "72%" }}
             >
@@ -145,7 +151,7 @@ const HeroSection = () => {
                 alt="Team member with tablet"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </motion.div>
 
             {/* WATCH VIDEO play button */}
             <div className="absolute z-20 flex items-center gap-2 sm:gap-3" style={{ right: "5%", top: "48%" }}>
