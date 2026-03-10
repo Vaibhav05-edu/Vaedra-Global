@@ -28,6 +28,7 @@ const Index = () => {
       <ServicesSection />
       <FullWidthImage />
       <TestimonialsSection />
+      <FAQSection />
       
       <BlogSection />
       <CTASection />
