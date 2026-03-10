@@ -156,6 +156,7 @@ const AboutSection = () => {
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo leaning"
+                loading="lazy"
                 className="w-72 h-72 md:w-[380px] md:h-[380px] lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
