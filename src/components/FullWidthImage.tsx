@@ -1,6 +1,18 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 const FullWidthVideo = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay blocked — silent fallback
+      });
+    }
+  }, []);
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -9,15 +21,17 @@ const FullWidthVideo = () => {
       className="w-full"
     >
       <video
-        src="/videos/showcase.mp4"
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
         className="w-full h-[50vh] md:h-[70vh] object-cover block"
-        style={{ minHeight: '300px' }}
-      />
+        style={{ minHeight: '300px', background: '#000' }}
+      >
+        <source src="/videos/showcase.mp4" type="video/mp4" />
+      </video>
     </motion.section>
   );
 };
