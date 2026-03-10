@@ -21,7 +21,7 @@ const testimonials = [
     name: "Emma Williams",
     role: "Marketing Director, GrowthLab",
     feedback:
-      "Arolax delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
+      "Vaedra Global delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
     rating: 5,
   },
 ];
