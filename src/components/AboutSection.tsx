@@ -122,14 +122,14 @@ const AboutSection = () => {
         {/* ===== CTA Circle + Avatar + Bottom Images ===== */}
         <div className="relative mt-8 lg:mt-0">
           {/* Avatar + CTA grouped - left bottom area */}
-          <div className="relative flex justify-center lg:justify-start items-end mb-10 lg:mb-0 lg:min-h-[400px]">
-            {/* CTA Button - positioned under avatar's leaning arm */}
+          <div className="relative flex justify-center lg:justify-start mb-10 lg:mb-0 lg:min-h-[440px]">
+            {/* CTA Button - anchored so arm contact is consistent */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="relative z-10 self-end mb-4 lg:ml-8"
+              className="relative z-10 mt-28 md:mt-36 lg:absolute lg:left-10 lg:bottom-10"
             >
               <a
                 href="#services"
@@ -145,18 +145,18 @@ const AboutSection = () => {
               </a>
             </motion.div>
 
-            {/* Avatar leaning on the button - overlapping from the right */}
+            {/* Avatar positioned so leaning hand touches button */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
-              className="relative z-20 -ml-20 md:-ml-24 lg:-ml-28 self-end"
+              className="relative z-20 -ml-24 md:-ml-28 lg:absolute lg:left-36 lg:bottom-0"
             >
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo leaning"
-                className="w-72 h-72 md:w-96 md:h-96 lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+                className="w-72 h-72 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
           </div>
