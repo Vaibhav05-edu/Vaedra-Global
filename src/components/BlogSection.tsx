@@ -7,18 +7,18 @@ import project4 from "@/assets/project-4.jpg";
 const posts = [
   {
     image: project1,
-    title: "Development tech trends that define the future of digital",
-    excerpt: "We lead by the design philosophy that every detail only matters visually…",
+    title: "How AI is revolutionizing software development in 2026",
+    excerpt: "From AI-powered code generation to intelligent debugging, artificial intelligence is reshaping how developers build, test, and deploy modern software applications.",
   },
   {
     image: project2,
-    title: "Best web agency tools for modern design and branding",
-    excerpt: "We lead by the design philosophy that every detail only matters visually…",
+    title: "The rise of AI agents in enterprise software solutions",
+    excerpt: "Autonomous AI agents are transforming business operations—automating workflows, analyzing data, and making real-time decisions that drive efficiency at scale.",
   },
   {
     image: project4,
-    title: "How e-commerce design drives conversion and growth",
-    excerpt: "We lead by the design philosophy that every detail only matters visually…",
+    title: "Building smarter apps with machine learning and cloud",
+    excerpt: "Combining ML models with cloud-native architecture enables businesses to deliver personalized, intelligent experiences that adapt and evolve with user behavior.",
   },
 ];
 
