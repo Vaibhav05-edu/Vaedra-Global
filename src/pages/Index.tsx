@@ -19,7 +19,6 @@ const Index = () => {
       <HeroSection />
       <BrandSlider />
       <AboutSection />
-      <ServicesSection />
       <TakeChargeSection />
       <PortfolioSection />
       <FullWidthImage />
