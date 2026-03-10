@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import aboutTeamCollab from "@/assets/about-team-collab.jpg";
+import aboutAvatar from "@/assets/about-avatar.gif";
 import aboutOffice from "@/assets/about-office.jpg";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
