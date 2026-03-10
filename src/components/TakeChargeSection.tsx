@@ -45,29 +45,29 @@ const TakeChargeSection = () => {
     <section className="bg-primary text-primary-foreground py-20 lg:py-28 relative overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 xl:px-16">
         {/* Heading with avatar peeking behind it */}
-        <div className="relative text-center">
-          {/* Avatar peeking from behind the text */}
+        <div className="relative text-center pt-16 md:pt-20">
+          {/* Avatar peeking from behind the text - only head visible */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-            className="absolute left-1/2 -translate-x-1/4 top-0 -translate-y-[60%] z-10"
+            className="absolute left-1/2 -translate-x-1/2 top-0 z-30 pointer-events-none"
           >
             <img
               src={aboutAvatar}
               alt="Avatar peeking"
-              className="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain drop-shadow-lg"
+              className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain drop-shadow-lg"
             />
           </motion.div>
 
-          {/* Heading */}
+          {/* Heading - clips the avatar so only head peeks out */}
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20"
+            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20 bg-primary"
           >
             TAKE CHARGE STEERING
             <br />
@@ -81,7 +81,7 @@ const TakeChargeSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25 }}
-          className="font-body text-base md:text-lg max-w-sm ml-auto mr-auto md:ml-[40%] md:mr-0 mt-10 mb-16 lg:mb-24 leading-relaxed italic"
+          className="font-body text-base md:text-lg max-w-sm md:ml-[45%] mt-10 mb-16 lg:mb-24 leading-relaxed"
         >
           Our ability to combine expertise and systems thinking is what fuels us
           as a team.
