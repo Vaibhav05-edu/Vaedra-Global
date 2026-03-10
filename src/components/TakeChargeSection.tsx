@@ -44,41 +44,44 @@ const TakeChargeSection = () => {
   return (
     <section className="bg-primary text-primary-foreground py-20 lg:py-28 relative overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 xl:px-16">
-        {/* Avatar peeking from top */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-          className="flex justify-center mb-4"
-        >
-          <img
-            src={aboutAvatar}
-            alt="Avatar peeking"
-            className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-lg -mt-8"
-          />
-        </motion.div>
+        {/* Heading with avatar peeking behind it */}
+        <div className="relative text-center">
+          {/* Avatar peeking from behind the text */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+            className="absolute left-1/2 -translate-x-1/4 top-0 -translate-y-[60%] z-10"
+          >
+            <img
+              src={aboutAvatar}
+              alt="Avatar peeking"
+              className="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain drop-shadow-lg"
+            />
+          </motion.div>
 
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-          className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold uppercase leading-[0.95] tracking-tight text-center"
-        >
-          TAKE CHARGE STEERING
-          <br />
-          YOUR PRODUCT
-        </motion.h2>
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold uppercase leading-[0.95] tracking-tight relative z-20"
+          >
+            TAKE CHARGE STEERING
+            <br />
+            YOUR PRODUCT
+          </motion.h2>
+        </div>
 
-        {/* Description */}
+        {/* Description - center-right aligned like reference */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25 }}
-          className="font-body text-base md:text-lg max-w-md ml-auto mr-0 md:mr-16 lg:mr-24 mt-8 mb-16 lg:mb-24 leading-relaxed"
+          className="font-body text-base md:text-lg max-w-sm ml-auto mr-auto md:ml-[40%] md:mr-0 mt-10 mb-16 lg:mb-24 leading-relaxed italic"
         >
           Our ability to combine expertise and systems thinking is what fuels us
           as a team.
