@@ -53,6 +53,7 @@ const BlogPost = () => {
               <img
                 src={post.image}
                 alt={post.title}
+                loading="lazy"
                 className="w-full h-[300px] md:h-[450px] object-cover"
               />
             </div>
@@ -93,6 +94,7 @@ const BlogPost = () => {
                       <img
                         src={related.image}
                         alt={related.title}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>

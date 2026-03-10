@@ -42,6 +42,7 @@ const BrandSlider = () => {
               <img
                 src={brand.src}
                 alt={brand.alt}
+                loading="lazy"
                 className="max-h-[70px] lg:max-h-[85px] xl:max-h-[100px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
               />
             </div>

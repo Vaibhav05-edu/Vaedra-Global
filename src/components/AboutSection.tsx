@@ -85,9 +85,9 @@ const AboutSection = () => {
             {/* Avatars */}
             <div>
               <div className="flex -space-x-3 mb-4">
-                <img src={team1} alt="Team member 1" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
-                <img src={team2} alt="Team member 2" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
-                <img src={team3} alt="Team member 3" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team1} alt="Team member 1" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team2} alt="Team member 2" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team3} alt="Team member 3" loading="lazy" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
               </div>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
                 happy
@@ -156,6 +156,7 @@ const AboutSection = () => {
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo leaning"
+                loading="lazy"
                 className="w-72 h-72 md:w-[380px] md:h-[380px] lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
@@ -178,6 +179,7 @@ const AboutSection = () => {
                 <img
                   src={aboutOffice}
                   alt="Modern creative office"
+                  loading="lazy"
                   className="w-full h-72 md:h-80 lg:h-[420px] object-cover"
                 />
               </div>
