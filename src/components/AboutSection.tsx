@@ -142,6 +142,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              style={{ y: ctaY }}
               className="absolute left-2 sm:left-4 md:left-8 lg:left-12 bottom-8 md:bottom-0 z-10"
             >
               <a
