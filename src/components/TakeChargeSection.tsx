@@ -55,7 +55,7 @@ const TakeChargeSection = () => {
             className="absolute left-1/2 -translate-x-1/2 top-0 z-30 pointer-events-none"
           >
             <img
-              src={aboutAvatar}
+              src={avatarHead}
               alt="Avatar peeking"
               className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain drop-shadow-lg"
             />
