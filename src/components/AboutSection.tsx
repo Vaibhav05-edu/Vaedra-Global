@@ -121,14 +121,15 @@ const AboutSection = () => {
 
         {/* ===== CTA Circle + Avatar + Bottom Images ===== */}
         <div className="relative mt-8 lg:mt-0">
-          {/* Avatar + CTA grouped together */}
-          <div className="relative lg:absolute lg:left-[18%] lg:-top-16 z-20 flex justify-center lg:justify-start mb-10 lg:mb-0">
-            {/* CTA Button */}
+          {/* Avatar + CTA grouped - left bottom area */}
+          <div className="relative flex justify-center lg:justify-start items-end mb-10 lg:mb-0 lg:min-h-[350px]">
+            {/* CTA Button - positioned for avatar to lean on */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="relative z-10 lg:ml-4"
             >
               <a
                 href="#services"
@@ -144,18 +145,18 @@ const AboutSection = () => {
               </a>
             </motion.div>
 
-            {/* Avatar leaning on the button */}
+            {/* Avatar leaning right arm on the button - to the right of button, bottom aligned */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
-              className="absolute -right-40 md:-right-52 lg:-right-60 -top-32 md:-top-44 lg:-top-52 z-30"
+              className="relative z-20 -ml-12 md:-ml-16 lg:-ml-20 self-end"
             >
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo"
-                className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+                className="w-64 h-64 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
           </div>
