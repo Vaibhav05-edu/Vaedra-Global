@@ -49,7 +49,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-           className="absolute right-4 lg:right-0 top-0 lg:top-4 hidden md:flex items-center gap-0"
+           className="absolute right-2 sm:right-4 lg:right-0 top-0 lg:top-4 flex items-center gap-0 scale-50 sm:scale-75 md:scale-100 origin-top-right"
           >
             {/* Lime green triangle (left half - pointing right) */}
             <div
