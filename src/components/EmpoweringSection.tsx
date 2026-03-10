@@ -19,7 +19,7 @@ const EmpoweringSection = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-background max-w-2xl"
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground max-w-2xl"
           >
             EMPOWERING SKILLS
             <br />
@@ -30,7 +30,7 @@ const EmpoweringSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="font-body text-sm text-background/60 max-w-xs leading-relaxed lg:pt-4"
+            className="font-body text-sm text-muted-foreground max-w-xs leading-relaxed lg:pt-4"
           >
             Add the best talent on the market, an agile skilled management & seamless involvement
           </motion.p>
@@ -39,7 +39,7 @@ const EmpoweringSection = () => {
         {/* Content: Skills list + Images */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left: Skills with vertical line */}
-          <div className="relative pl-8 border-l border-background/20">
+          <div className="relative pl-8 border-l border-foreground/20">
             {skills.map((skill, i) => (
               <motion.div
                 key={skill.title}
@@ -53,10 +53,10 @@ const EmpoweringSection = () => {
                   <skill.icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl md:text-3xl font-bold uppercase text-background mb-2">
+                  <h3 className="font-display text-2xl md:text-3xl font-bold uppercase text-foreground mb-2">
                     {skill.title}
                   </h3>
-                  <p className="font-body text-sm text-background/50 leading-relaxed max-w-sm">
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-sm">
                     {skill.description}
                   </p>
                 </div>
@@ -79,16 +79,16 @@ const EmpoweringSection = () => {
                   <div className="w-6 h-6 rounded-full bg-highlight/20 flex items-center justify-center">
                     <span className="text-highlight text-xs">✦</span>
                   </div>
-                  <span className="font-body text-sm text-background font-medium">Weekly dinamycs</span>
+                  <span className="font-body text-sm text-foreground font-medium">Weekly dinamycs</span>
                 </div>
-                <span className="text-background/40 text-lg">•••</span>
+                <span className="text-foreground/40 text-lg">•••</span>
               </div>
               {/* Bar chart */}
               <div className="flex items-end gap-1.5 h-28 mb-3">
                 {[45, 65, 30, 80, 55, 70, 40, 90, 60, 75, 50, 85].map((h, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-sm bg-background/30"
+                    className="flex-1 rounded-sm bg-foreground/30"
                     style={{ height: `${h}%` }}
                   />
                 ))}
@@ -98,7 +98,7 @@ const EmpoweringSection = () => {
                   <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-body text-highlight bg-highlight/20 px-1.5 py-0.5 rounded">42%</span>
                 </div>
               </div>
-              <div className="flex justify-between text-[10px] font-body text-background/40">
+              <div className="flex justify-between text-[10px] font-body text-foreground/40">
                 <span>JUL 05-12</span>
                 <span>JUL 13-20</span>
               </div>
