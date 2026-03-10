@@ -1,100 +1,205 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import aboutImg from "@/assets/about-wide.jpg";
+import heroBg from "@/assets/hero-bg.jpg";
+import team1 from "@/assets/team-1.jpg";
+import team2 from "@/assets/team-2.jpg";
+import team3 from "@/assets/team-3.jpg";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="bg-background py-24 lg:py-32">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left */}
-          <div>
+    <section id="about" className="bg-background py-20 lg:py-28 overflow-hidden">
+      <div className="container mx-auto px-6 lg:px-12 xl:px-16">
+        {/* ===== TOP: Label + Heading + Geometric shapes ===== */}
+        <div className="relative">
+          <div className="flex items-start gap-6 lg:gap-10">
+            {/* 01 WHO WE ARE label */}
             <motion.p
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-highlight font-display text-lg uppercase tracking-widest mb-4"
+              className="text-foreground font-display text-sm md:text-base uppercase tracking-widest font-semibold whitespace-nowrap pt-4"
             >
-              01 — Who We Are
+              01 WHO WE ARE
             </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="font-display text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.95] text-foreground mb-8"
-            >
-              Have a brilliant idea to boost the{" "}
-              <span className="text-highlight">Growth & Development</span> of your branding!
-            </motion.h2>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
+            {/* Large heading */}
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="flex items-start gap-6 mt-8"
+              transition={{ delay: 0.1 }}
+              className="font-display text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] xl:text-[7.5rem] font-bold uppercase leading-[0.9] tracking-tight text-foreground flex-1"
             >
-              <div className="bg-card rounded-2xl p-6 border border-border">
-                <p className="font-body text-sm text-muted-foreground leading-relaxed mb-6">
-                  Consumers today rely heavily on digital means to research products. We research and blend engaging digital experiences that connect brands with their audiences.
-                </p>
-                <a
-                  href="#services"
-                  className="group inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-5 py-3 font-display text-sm uppercase tracking-wide hover:bg-primary/90 transition-colors"
-                >
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  Explore Us More
-                </a>
-              </div>
-            </motion.div>
+              HAVE A BRILLIANT
+              <br />
+              IDEA BOOST THE{" "}
+              <span className="text-highlight">GROWTH</span>
+              <br />
+              <span className="text-highlight">DEVELOPMENT</span>{" "}
+              AGENCY
+              <br />
+              YOUR BRANDING!
+            </motion.h2>
           </div>
 
-          {/* Right */}
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="rounded-2xl overflow-hidden"
+          {/* Geometric shapes - top right */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="absolute right-0 top-4 lg:top-8 hidden md:flex items-center"
+          >
+            {/* Lime green triangle (left half) */}
+            <div
+              className="w-0 h-0"
+              style={{
+                borderTop: "45px solid transparent",
+                borderBottom: "45px solid transparent",
+                borderRight: "40px solid hsl(var(--primary))",
+              }}
+            />
+            {/* White triangle (right half) */}
+            <div
+              className="w-0 h-0"
+              style={{
+                borderTop: "55px solid transparent",
+                borderBottom: "55px solid transparent",
+                borderLeft: "55px solid hsl(var(--foreground))",
+              }}
+            />
+          </motion.div>
+        </div>
+
+        {/* ===== MIDDLE: Avatars + Text + CTA Circle ===== */}
+        <div className="mt-16 lg:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+          {/* Left: Avatars + text */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-3 flex items-start gap-6"
+          >
+            {/* Avatars */}
+            <div>
+              <div className="flex -space-x-3 mb-4">
+                <img src={team1} alt="" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team2} alt="" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+                <img src={team3} alt="" className="w-12 h-12 rounded-full border-2 border-background object-cover" />
+              </div>
+              <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                happy
+                <br />
+                clients of
+                <br />
+                our Services
+              </p>
+            </div>
+
+            {/* Vertical divider */}
+            <div className="w-px h-32 bg-muted-foreground/30 flex-shrink-0" />
+          </motion.div>
+
+          {/* Center: Paragraph text */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-4"
+          >
+            <p className="font-serif text-base lg:text-lg text-muted-foreground leading-relaxed italic">
+              Consumers today rely heavily on digital means to research products. We research a brand of blend engaging with it, according to the meanwhile, 51% of consumers.
+            </p>
+          </motion.div>
+
+          {/* Right: empty space for CTA positioning (handled below) */}
+          <div className="lg:col-span-5" />
+        </div>
+
+        {/* ===== CTA Circle + Bottom Images ===== */}
+        <div className="relative mt-8 lg:mt-0">
+          {/* Large lime circle CTA - positioned center-left */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            className="relative lg:absolute lg:left-[30%] lg:-top-4 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
+          >
+            <a
+              href="#services"
+              className="group w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full bg-primary flex flex-col items-center justify-center text-primary-foreground hover:scale-105 transition-transform"
             >
-              <img
-                src={aboutImg}
-                alt="Creative agency workspace"
-                className="w-full h-64 lg:h-80 object-cover"
-              />
+              <span className="font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
+                EXPLORE US
+                <br />
+                MORE
+              </span>
+              <ArrowUpRight className="w-5 h-5 mt-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </motion.div>
+
+          {/* Bottom images row */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-10 lg:mt-16">
+            {/* Left image */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="lg:col-span-4 lg:col-start-1 lg:mt-20"
+            >
+              <div className="rounded-lg overflow-hidden">
+                <img
+                  src={heroBg}
+                  alt="Team collaboration workspace"
+                  className="w-full h-48 md:h-56 lg:h-52 object-cover"
+                />
+              </div>
             </motion.div>
 
-            <div className="grid grid-cols-2 gap-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-card rounded-2xl p-6 border border-border"
-              >
-                <span className="font-display text-5xl font-bold text-highlight">32k+</span>
-                <p className="font-display text-lg uppercase text-muted-foreground mt-2">
-                  Happy clients of our services
-                </p>
-              </motion.div>
+            {/* Right image + overlapping card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="lg:col-span-5 lg:col-start-7 relative"
+            >
+              <div className="rounded-lg overflow-hidden">
+                <img
+                  src={aboutImg}
+                  alt="Modern office workspace"
+                  className="w-full h-72 md:h-80 lg:h-[420px] object-cover"
+                />
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="bg-card rounded-2xl p-6 border border-border"
-              >
-                <span className="font-display text-5xl font-bold text-foreground">
-                  1.8<span className="text-highlight">x</span>
-                </span>
-                <p className="font-display text-lg uppercase text-muted-foreground mt-2">
-                  Faster Service Delivery
+              {/* Overlapping info card */}
+              <div className="absolute top-4 right-0 lg:-right-4 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
+                {/* Quote / chevron icon */}
+                <div className="flex gap-0.5 mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
+                    <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight -ml-2">
+                    <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed mb-6">
+                  Make your business prosper with our great team of experts. We'll make your.
                 </p>
-              </motion.div>
-            </div>
+                <div className="flex items-end gap-1">
+                  <span className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none">1.8</span>
+                  <span className="font-display text-2xl lg:text-3xl font-bold text-highlight leading-none mb-1">x</span>
+                </div>
+                <p className="font-display text-sm uppercase tracking-wider text-foreground font-semibold mt-2">
+                  FASTER SERVICE
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
