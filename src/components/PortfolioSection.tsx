@@ -73,7 +73,7 @@ const PortfolioSection = () => {
           {topRow.map((project, i) => (
             <div
               key={`top-${i}`}
-              className="relative flex-shrink-0 w-[90vw] md:w-[85vw] aspect-[5/7] rounded-xl overflow-hidden group"
+              className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[85vh] rounded-xl overflow-hidden group"
             >
               <img
                 src={project.image}
@@ -102,7 +102,7 @@ const PortfolioSection = () => {
           {bottomRow.map((project, i) => (
             <div
               key={`bottom-${i}`}
-              className="relative flex-shrink-0 w-[90vw] md:w-[85vw] aspect-[5/7] rounded-xl overflow-hidden group"
+              className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[85vh] rounded-xl overflow-hidden group"
             >
               <img
                 src={project.image}
