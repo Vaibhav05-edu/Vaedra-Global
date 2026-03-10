@@ -154,8 +154,8 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: -30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              style={{ y: rightY, height: "72%" }}
               className="absolute right-0 top-0 w-[55%] sm:w-[58%] rounded-b-[100px] sm:rounded-b-[180px] overflow-hidden z-[5]"
-              style={{ height: "72%" }}
             >
               <img
                 src={heroPerson2}
