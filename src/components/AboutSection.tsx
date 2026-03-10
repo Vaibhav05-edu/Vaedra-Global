@@ -165,6 +165,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
+              style={{ y: avatarY }}
               className="absolute left-16 sm:left-28 md:left-36 lg:left-40 -bottom-4 sm:-bottom-12 md:-bottom-24 lg:-bottom-28 z-20"
             >
               <img
