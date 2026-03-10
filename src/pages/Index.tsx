@@ -11,6 +11,7 @@ import FullWidthImage from "@/components/FullWidthImage";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import BlogSection from "@/components/BlogSection";
+import ExperienceCTA from "@/components/ExperienceCTA";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -29,7 +30,7 @@ const Index = () => {
       <FullWidthImage />
       <TestimonialsSection />
       <FAQSection />
-      
+      <ExperienceCTA />
       <BlogSection />
       <CTASection />
       <Footer />
