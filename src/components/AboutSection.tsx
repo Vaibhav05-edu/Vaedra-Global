@@ -121,19 +121,19 @@ const AboutSection = () => {
 
         {/* ===== CTA Circle + Avatar + Bottom Images ===== */}
         <div className="relative mt-8 lg:mt-0">
-          {/* Avatar + CTA grouped - left bottom area */}
-          <div className="relative flex justify-center lg:justify-start mb-10 lg:mb-0 lg:min-h-[440px]">
-            {/* CTA Button - anchored so arm contact is consistent */}
+          {/* Avatar + CTA grouped - button lower-left, avatar to the right leaning on it */}
+          <div className="relative flex justify-center lg:justify-start mb-10 lg:mb-0 lg:min-h-[480px]">
+            {/* CTA Button - lower left */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="relative z-10 mt-28 md:mt-36 lg:absolute lg:left-10 lg:bottom-10"
+              className="absolute left-4 md:left-8 lg:left-12 bottom-0 z-10"
             >
               <a
                 href="#services"
-                className="group relative w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
+                className="group relative w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
               >
                 <span className="absolute inset-0 rounded-full bg-primary scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
                 <span className="relative z-10 font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
@@ -145,18 +145,18 @@ const AboutSection = () => {
               </a>
             </motion.div>
 
-            {/* Avatar positioned so leaning hand touches button */}
+            {/* Avatar - to the right, overlapping the button with his left arm */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
-              className="relative z-20 -ml-24 md:-ml-28 lg:absolute lg:left-36 lg:bottom-0"
+              className="absolute left-28 md:left-36 lg:left-40 bottom-0 z-20"
             >
               <img
                 src={aboutAvatar}
                 alt="Avatar character in tuxedo leaning"
-                className="w-72 h-72 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+                className="w-72 h-72 md:w-[380px] md:h-[380px] lg:w-[480px] lg:h-[480px] object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
           </div>
