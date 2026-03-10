@@ -178,7 +178,7 @@ const AboutSection = () => {
               </div>
 
               {/* Overlapping info card */}
-              <div className="absolute top-4 right-0 lg:-right-4 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
+              <div className="absolute top-0 right-0 lg:-right-6 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
                 {/* Quote / chevron icon */}
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
