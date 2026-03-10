@@ -219,7 +219,7 @@ const AboutSection = () => {
                 <p className="font-display text-sm uppercase tracking-wider text-foreground font-semibold mt-2">
                   FASTER SERVICE
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
