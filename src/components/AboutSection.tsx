@@ -190,14 +190,14 @@ const AboutSection = () => {
               transition={{ delay: 0.4 }}
               className="lg:col-span-5 lg:col-start-7 relative lg:-mt-4"
             >
-              <div className="rounded-lg overflow-hidden">
+              <motion.div style={{ y: officeY }} className="rounded-lg overflow-hidden">
                 <img
                   src={aboutOffice}
                   alt="Modern creative office"
                   loading="lazy"
                   className="w-full h-56 sm:h-72 md:h-80 lg:h-[420px] object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Overlapping info card */}
               <div className="relative mt-4 sm:absolute sm:top-0 sm:right-0 lg:-right-6 bg-card border border-border rounded-xl p-4 sm:p-6 lg:p-8 w-full sm:w-56 md:w-64 lg:w-72 z-10">
