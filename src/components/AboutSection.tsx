@@ -131,7 +131,7 @@ const AboutSection = () => {
           >
             <a
               href="#services"
-              className="group w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full bg-primary flex flex-col items-center justify-center text-primary-foreground hover:scale-105 transition-transform"
+              className="group w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
             >
               <span className="font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
                 EXPLORE US
