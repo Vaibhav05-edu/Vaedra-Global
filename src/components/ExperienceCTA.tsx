@@ -42,7 +42,7 @@ const ExperienceCTA = () => {
           >
             Let's start your
             <br />
-            experience with Vaedra
+            experience with Vaedra Global
           </motion.h2>
 
           <motion.a

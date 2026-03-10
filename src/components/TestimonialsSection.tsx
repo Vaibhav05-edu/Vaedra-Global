@@ -7,7 +7,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "CEO, TechStart",
     feedback:
-      "Working with Arolax transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
+      "Working with Vaedra Global transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
     rating: 5,
   },
   {
@@ -21,7 +21,7 @@ const testimonials = [
     name: "Emma Williams",
     role: "Marketing Director, GrowthLab",
     feedback:
-      "Arolax delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
+      "Vaedra Global delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
     rating: 5,
   },
 ];

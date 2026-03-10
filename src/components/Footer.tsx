@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-display text-lg uppercase text-foreground/80">
-            © 2024-25 Arolax Agency
+            © 2024-25 Vaedra Global
           </p>
 
           <nav className="flex items-center gap-6">
