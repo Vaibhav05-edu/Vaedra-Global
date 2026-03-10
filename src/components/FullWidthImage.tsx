@@ -27,7 +27,7 @@ const FullWidthVideo = () => {
         muted
         playsInline
         preload="metadata"
-        className="w-full h-[50vh] md:h-[70vh] object-cover block"
+        className="w-full h-[40vh] sm:h-[50vh] md:h-[70vh] object-cover object-center block"
         style={{ minHeight: '300px', background: '#000' }}
       >
         <source src="/videos/showcase.mp4" type="video/mp4" />

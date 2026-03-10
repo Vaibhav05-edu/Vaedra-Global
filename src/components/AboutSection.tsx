@@ -185,7 +185,7 @@ const AboutSection = () => {
               </div>
 
               {/* Overlapping info card */}
-              <div className="absolute top-0 right-0 lg:-right-6 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
+              <div className="relative mt-4 sm:absolute sm:top-0 sm:right-0 lg:-right-6 bg-card border border-border rounded-xl p-5 sm:p-6 lg:p-8 w-full sm:w-56 md:w-64 lg:w-72 z-10">
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
                     <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
