@@ -150,19 +150,19 @@ const ServicesSection = () => {
   const [activeCategory, setActiveCategory] = useState("development");
 
   return (
-    <section id="services" className="bg-background py-24 lg:py-32">
-      <div className="container mx-auto px-6">
+    <section id="services" className="bg-background py-16 sm:py-24 lg:py-32">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header area */}
-        <div className="relative mb-16">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-12 z-10">
-            <img src={avatarHead} alt="Avatar" className="w-24 md:w-32 object-contain" />
+        <div className="relative mb-12 sm:mb-16">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-8 sm:-top-12 z-10">
+            <img src={avatarHead} alt="Avatar" className="w-20 sm:w-24 md:w-32 object-contain" />
           </div>
 
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground text-center pt-16"
+            className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] text-foreground text-center pt-12 sm:pt-16"
           >
             We provide premium
             <br />
@@ -174,7 +174,7 @@ const ServicesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="max-w-sm font-body text-sm text-muted-foreground leading-relaxed mt-8 ml-auto mr-0 md:mr-[15%]"
+            className="max-w-sm font-body text-sm text-muted-foreground leading-relaxed mt-6 sm:mt-8 mx-auto sm:ml-auto sm:mr-0 md:mr-[15%] text-center sm:text-left"
           >
             Our ability to combine expertise and systems thinking is what fuels
             us as a team.
@@ -187,13 +187,13 @@ const ServicesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-2 mb-14"
+          className="flex flex-wrap justify-center gap-2 mb-10 sm:mb-14"
         >
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`font-display text-sm md:text-base uppercase tracking-wider px-5 py-2.5 rounded-full border transition-all duration-300 ${
+              className={`font-display text-xs sm:text-sm md:text-base uppercase tracking-wider px-3 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 ${
                 activeCategory === cat.id
                   ? "bg-highlight text-highlight-foreground border-highlight"
                   : "bg-transparent text-foreground/60 border-border/40 hover:text-foreground hover:border-border"
@@ -219,13 +219,13 @@ const ServicesSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1fr_80px] items-start md:items-center gap-6 md:gap-8 py-10 border-t border-border/30 cursor-pointer hover:bg-card/30 transition-colors px-4 -mx-4"
+                className="group grid grid-cols-1 md:grid-cols-[80px_1fr_1fr_80px] items-start md:items-center gap-4 sm:gap-6 md:gap-8 py-8 sm:py-10 border-t border-border/30 cursor-pointer hover:bg-card/30 transition-colors px-2 sm:px-4 -mx-2 sm:-mx-4"
               >
-                <span className="font-display text-2xl md:text-3xl font-bold text-muted-foreground">
+                <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-muted-foreground">
                   {service.num}.
                 </span>
 
-                <h3 className="font-display text-2xl md:text-3xl uppercase font-bold text-foreground whitespace-pre-line leading-tight">
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl uppercase font-bold text-foreground whitespace-pre-line leading-tight">
                   {service.title}
                 </h3>
 
