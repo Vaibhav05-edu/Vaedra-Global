@@ -152,15 +152,13 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="lg:col-span-4 lg:col-start-1 lg:mt-28"
+              className="lg:col-span-4 lg:col-start-1 lg:mt-28 flex items-end justify-center"
             >
-              <div className="rounded-lg overflow-hidden">
-                <img
-                  src={aboutTeamCollab}
-                  alt="Team collaboration"
-                  className="w-full h-48 md:h-56 lg:h-52 object-cover"
-                />
-              </div>
+              <img
+                src={aboutAvatar}
+                alt="Animated avatar character"
+                className="w-full h-56 md:h-64 lg:h-72 object-contain mix-blend-multiply dark:mix-blend-screen drop-shadow-xl"
+              />
             </motion.div>
 
             {/* Right image + overlapping card */}
