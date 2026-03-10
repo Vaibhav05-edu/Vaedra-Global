@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -21,107 +20,157 @@ const bottomRow = [
   { image: project3, title: "Creative", category: "Design", year: "2022" },
 ];
 
+// SVG circular progress ring
+const ProgressRing = ({ progress }: { progress: number }) => {
+  const radius = 155;
+  const stroke = 4;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = 2 * Math.PI * normalizedRadius;
+  const strokeDashoffset = circumference - progress * circumference;
+
+  return (
+    <svg
+      width={radius * 2}
+      height={radius * 2}
+      className="absolute -rotate-90"
+    >
+      {/* Background track */}
+      <circle
+        cx={radius}
+        cy={radius}
+        r={normalizedRadius}
+        fill="none"
+        stroke="hsl(var(--foreground) / 0.1)"
+        strokeWidth={stroke}
+      />
+      {/* Progress arc */}
+      <circle
+        cx={radius}
+        cy={radius}
+        r={normalizedRadius}
+        fill="none"
+        stroke="hsl(var(--primary-foreground))"
+        strokeWidth={stroke}
+        strokeDasharray={circumference}
+        strokeDashoffset={strokeDashoffset}
+        strokeLinecap="round"
+        className="transition-[stroke-dashoffset] duration-100 ease-out"
+      />
+    </svg>
+  );
+};
+
 const PortfolioSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Extra scroll height to "consume" for horizontal scrolling
+  const SCROLL_DISTANCE = 2000;
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const windowHeight = window.innerHeight;
-      
-      // Calculate progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
-      const totalScrollDistance = sectionHeight + windowHeight;
-      const scrolled = windowHeight - rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / totalScrollDistance));
+      if (!outerRef.current) return;
+      const rect = outerRef.current.getBoundingClientRect();
+      // Progress: 0 when sticky top starts, 1 after SCROLL_DISTANCE px of scrolling
+      const progress = Math.max(0, Math.min(1, -rect.top / SCROLL_DISTANCE));
       setScrollProgress(progress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [SCROLL_DISTANCE]);
 
-  // Max horizontal translate in pixels
-  const maxTranslate = 600;
-  const topTranslate = scrollProgress * maxTranslate; // moves right
-  const bottomTranslate = -(scrollProgress * maxTranslate); // moves left
+  const maxTranslate = 1200;
+  const topTranslate = scrollProgress * maxTranslate;
+  const bottomTranslate = -(scrollProgress * maxTranslate);
 
   return (
-    <section
+    // Outer wrapper: tall enough to allow scroll-jacking via sticky
+    <div
+      ref={outerRef}
       id="portfolio"
-      ref={sectionRef}
-      className="relative bg-background py-24 lg:py-32 overflow-hidden"
+      style={{ height: `calc(100vh + ${SCROLL_DISTANCE}px)` }}
     >
-      {/* Center circle with CASE STUDY */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-primary flex items-center justify-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold uppercase text-primary-foreground tracking-tight">
-            Case Study
-          </h2>
-        </div>
-      </div>
-
-      {/* Top row - scrolls right */}
-      <div className="mb-4">
-        <div
-          className="flex gap-4 will-change-transform"
-          style={{ transform: `translateX(${topTranslate}px)`, marginLeft: "-200px" }}
-        >
-          {topRow.map((project, i) => (
-            <div
-              key={`top-${i}`}
-              className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[85vh] rounded-xl overflow-hidden group"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
-                <h3 className="font-display text-xl uppercase font-semibold text-foreground">
-                  {project.title}
-                </h3>
-                <p className="font-body text-sm text-muted-foreground">
-                  {project.category} — {project.year}
-                </p>
-              </div>
+      {/* Sticky inner viewport */}
+      <div className="sticky top-0 h-screen overflow-hidden bg-background flex flex-col justify-center">
+        {/* Center circle with progress ring */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+          <div className="relative flex items-center justify-center">
+            <ProgressRing progress={scrollProgress} />
+            <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-primary flex items-center justify-center">
+              <h2 className="font-display text-3xl md:text-4xl font-bold uppercase text-primary-foreground tracking-tight text-center">
+                Case Study
+              </h2>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
 
-      {/* Bottom row - scrolls left */}
-      <div>
-        <div
-          className="flex gap-4 will-change-transform justify-end"
-          style={{ transform: `translateX(${bottomTranslate}px)`, marginRight: "-200px" }}
-        >
-          {bottomRow.map((project, i) => (
-            <div
-              key={`bottom-${i}`}
-              className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[85vh] rounded-xl overflow-hidden group"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
-                <h3 className="font-display text-xl uppercase font-semibold text-foreground">
-                  {project.title}
-                </h3>
-                <p className="font-body text-sm text-muted-foreground">
-                  {project.category} — {project.year}
-                </p>
+        {/* Top row - scrolls right */}
+        <div className="mb-4">
+          <div
+            className="flex gap-4 will-change-transform"
+            style={{
+              transform: `translateX(${topTranslate}px)`,
+              marginLeft: "-800px",
+            }}
+          >
+            {topRow.map((project, i) => (
+              <div
+                key={`top-${i}`}
+                className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[42vh] rounded-xl overflow-hidden group"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+                  <h3 className="font-display text-xl uppercase font-semibold text-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground">
+                    {project.category} — {project.year}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom row - scrolls left */}
+        <div>
+          <div
+            className="flex gap-4 will-change-transform justify-end"
+            style={{
+              transform: `translateX(${bottomTranslate}px)`,
+              marginRight: "-800px",
+            }}
+          >
+            {bottomRow.map((project, i) => (
+              <div
+                key={`bottom-${i}`}
+                className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[42vh] rounded-xl overflow-hidden group"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+                  <h3 className="font-display text-xl uppercase font-semibold text-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground">
+                    {project.category} — {project.year}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
