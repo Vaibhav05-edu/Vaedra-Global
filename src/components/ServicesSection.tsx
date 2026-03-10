@@ -60,7 +60,7 @@ const ServicesSection = () => {
           >
             We provide premium
             <br />
-            development service
+            software development service
           </motion.h2>
 
           <motion.p
