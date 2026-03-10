@@ -60,7 +60,7 @@ const ServicesSection = () => {
           >
             We provide premium
             <br />
-            Arolax service
+            development service
           </motion.h2>
 
           <motion.p
