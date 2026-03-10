@@ -35,6 +35,14 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-4">
+          <a
+            href="https://cal.com/vaedra-global-agency"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-flex font-display text-sm uppercase tracking-wider bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors"
+          >
+            Book a Call
+          </a>
           <button className="text-foreground/70 hover:text-foreground transition-colors" aria-label="Search">
             <Search className="w-5 h-5" />
           </button>
@@ -68,6 +76,15 @@ const Header = () => {
                   {link}
                 </a>
               ))}
+              <a
+                href="https://cal.com/vaedra-global-agency"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="font-display text-xl uppercase tracking-wide text-primary px-6 py-3 transition-colors hover:bg-secondary"
+              >
+                Book a Call
+              </a>
             </nav>
           </motion.div>
         )}
