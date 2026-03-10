@@ -110,7 +110,7 @@ const HeroSection = () => {
           >
             {/* Decorative scribble */}
             <svg
-              className="absolute -left-16 top-2 w-16 h-16 text-foreground hidden lg:block"
+              className="absolute -left-4 sm:-left-8 lg:-left-16 top-2 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-foreground"
               viewBox="0 0 80 80"
               fill="none"
               stroke="currentColor"
