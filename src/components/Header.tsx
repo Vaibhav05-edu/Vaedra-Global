@@ -76,6 +76,15 @@ const Header = () => {
                   {link}
                 </a>
               ))}
+              <a
+                href="https://cal.com/vaedra-global-agency"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="font-display text-xl uppercase tracking-wide text-primary px-6 py-3 transition-colors hover:bg-secondary"
+              >
+                Book a Call
+              </a>
             </nav>
           </motion.div>
         )}
