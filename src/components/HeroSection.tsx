@@ -10,7 +10,7 @@ import team3 from "@/assets/team-3.jpg";
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen bg-background pt-20 overflow-hidden">
-      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-8 lg:pt-14">
+      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
           <div className="relative z-10 flex-1 min-w-0">
@@ -19,7 +19,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display font-bold uppercase leading-[0.88] tracking-tight text-foreground text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem]"
+              className="font-display font-bold uppercase leading-[0.85] tracking-tight text-foreground text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]"
             >
               WE ARE
               <br />
@@ -48,7 +48,7 @@ const HeroSection = () => {
               </div>
 
               {/* AND */}
-              <span className="font-display text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
+              <span className="font-display text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem] font-bold uppercase leading-[0.85] tracking-tight text-foreground">
                 AND
               </span>
 
@@ -77,7 +77,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex items-start gap-6 mt-16 md:mt-20 lg:mt-24 ml-8 md:ml-16 lg:ml-28"
+              className="flex items-start gap-6 mt-10 md:mt-14 lg:mt-16 ml-8 md:ml-16 lg:ml-28"
             >
               <a
                 href="#about"
