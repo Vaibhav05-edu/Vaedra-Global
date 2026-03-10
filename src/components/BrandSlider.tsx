@@ -16,30 +16,28 @@ const brands = [
 
 const BrandSlider = () => {
   return (
-    <section className="relative bg-secondary overflow-hidden">
-      <div className="flex">
-        {/* Left geometric decoration */}
-        <div className="relative flex-shrink-0 w-[220px] lg:w-[280px] hidden md:flex items-center">
-          {/* Large grey circle (half visible) */}
-          <div className="absolute -left-24 w-[220px] h-[220px] rounded-full border-[40px] border-muted/40" />
-          {/* Lime green square */}
-          <div className="absolute left-[100px] lg:left-[130px] top-1/2 -translate-y-1/2 w-[70px] h-[80px] bg-primary" />
-          {/* Small grey shapes */}
-          <div className="absolute left-[40px] top-1/2 -translate-y-1/2 w-[60px] h-[70px] bg-muted/30 rounded-sm" />
-        </div>
+    <section className="relative bg-secondary">
+      {/* Large geometric background decoration spanning hero into this section */}
+      <div className="absolute -top-[300px] left-0 w-[400px] h-[600px] z-[1] hidden md:block pointer-events-none">
+        {/* Large grey semi-circle (ring) */}
+        <div className="absolute left-[-120px] top-[60px] w-[380px] h-[380px] rounded-full border-[55px] border-muted-foreground/12" />
+        {/* Grey rectangle */}
+        <div className="absolute left-[90px] bottom-[50px] w-[90px] h-[130px] bg-muted-foreground/10" />
+        {/* Lime green square */}
+        <div className="absolute left-[150px] bottom-[40px] w-[85px] h-[110px] bg-primary" />
+      </div>
 
-        {/* Logo marquee area */}
-        <div className="flex-1 overflow-hidden py-10 lg:py-12">
-          <div className="animate-marquee flex items-center gap-20 lg:gap-28 whitespace-nowrap">
-            {[...brands, ...brands].map((brand, i) => (
-              <img
-                key={i}
-                src={brand.src}
-                alt={brand.alt}
-                className="h-10 lg:h-12 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale brightness-200"
-              />
-            ))}
-          </div>
+      {/* Logo marquee */}
+      <div className="relative z-[2] overflow-hidden py-8 lg:py-10">
+        <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center gap-24 lg:gap-36 whitespace-nowrap">
+          {[...brands, ...brands].map((brand, i) => (
+            <img
+              key={i}
+              src={brand.src}
+              alt={brand.alt}
+              className="h-12 lg:h-14 xl:h-16 w-auto min-w-[120px] object-contain opacity-50 hover:opacity-80 transition-opacity grayscale brightness-[2.5] contrast-75"
+            />
+          ))}
         </div>
       </div>
     </section>
