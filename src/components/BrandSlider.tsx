@@ -28,15 +28,16 @@ const BrandSlider = () => {
       </div>
 
       {/* Logo marquee */}
-      <div className="relative z-[2] overflow-hidden py-8 lg:py-10">
-        <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center gap-24 lg:gap-36 whitespace-nowrap">
+      <div className="relative z-[2] overflow-hidden py-10 lg:py-14">
+        <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center whitespace-nowrap">
           {[...brands, ...brands].map((brand, i) => (
-            <img
-              key={i}
-              src={brand.src}
-              alt={brand.alt}
-              className="h-12 lg:h-14 xl:h-16 w-auto min-w-[120px] object-contain opacity-50 hover:opacity-80 transition-opacity grayscale brightness-[2.5] contrast-75"
-            />
+            <div key={i} className="flex-shrink-0 w-[200px] lg:w-[240px] mx-10 lg:mx-14 flex items-center justify-center">
+              <img
+                src={brand.src}
+                alt={brand.alt}
+                className="h-16 lg:h-20 xl:h-24 w-full object-contain opacity-50 hover:opacity-80 transition-opacity grayscale brightness-[2.5] contrast-75"
+              />
+            </div>
           ))}
         </div>
       </div>
