@@ -10,7 +10,7 @@ import team3 from "@/assets/team-3.jpg";
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen bg-background pt-20 overflow-hidden">
-      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-8 lg:pt-14">
+      <div className="relative w-full px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
           <div className="relative z-10 flex-1 min-w-0">
