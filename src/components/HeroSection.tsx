@@ -9,8 +9,18 @@ import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Left image moves slower (parallax up), right image moves faster (parallax down)
+  const leftY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const rightY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
   return (
-    <section id="home" className="relative min-h-screen bg-background pt-20 overflow-x-hidden">
+    <section ref={sectionRef} id="home" className="relative min-h-screen bg-background pt-20 overflow-x-hidden">
       <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
