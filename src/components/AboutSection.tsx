@@ -127,7 +127,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-            className="relative lg:absolute lg:left-[30%] lg:-top-4 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
+            className="relative lg:absolute lg:left-[28%] lg:-top-16 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
           >
             <a
               href="#services"
