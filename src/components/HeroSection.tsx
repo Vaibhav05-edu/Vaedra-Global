@@ -120,7 +120,7 @@ const HeroSection = () => {
                 </a>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* ===== RIGHT SIDE - Images ===== */}
           <motion.div
