@@ -34,7 +34,7 @@ const HeroSection = () => {
       <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
-          <div className="relative z-10 flex-1 min-w-0">
+          <motion.div style={{ y: textY, opacity: heroOpacity }} className="relative z-10 flex-1 min-w-0">
             {/* WE ARE / SKILLED IN */}
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
