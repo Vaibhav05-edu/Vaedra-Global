@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutAvatar from "@/assets/about-avatar.png";
+import avatarHead from "@/assets/avatar-head.png";
 
 const teams = [
   {
