@@ -49,24 +49,24 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="absolute right-0 top-4 lg:top-8 hidden md:flex items-center"
+           className="absolute right-4 lg:right-0 top-0 lg:top-4 hidden md:flex items-center gap-0"
           >
-            {/* Lime green triangle (left half) */}
+            {/* Lime green triangle (left half - pointing right) */}
             <div
               className="w-0 h-0"
               style={{
-                borderTop: "45px solid transparent",
-                borderBottom: "45px solid transparent",
-                borderRight: "40px solid hsl(var(--primary))",
+                borderTop: "50px solid transparent",
+                borderBottom: "50px solid transparent",
+                borderRight: "45px solid hsl(var(--primary))",
               }}
             />
-            {/* White triangle (right half) */}
+            {/* White triangle (right half - pointing left) */}
             <div
               className="w-0 h-0"
               style={{
-                borderTop: "55px solid transparent",
-                borderBottom: "55px solid transparent",
-                borderLeft: "55px solid hsl(var(--foreground))",
+                borderTop: "60px solid transparent",
+                borderBottom: "60px solid transparent",
+                borderLeft: "60px solid hsl(var(--foreground))",
               }}
             />
           </motion.div>
@@ -127,7 +127,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-            className="relative lg:absolute lg:left-[30%] lg:-top-4 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
+            className="relative lg:absolute lg:left-[28%] lg:-top-16 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
           >
             <a
               href="#services"
@@ -150,7 +150,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="lg:col-span-4 lg:col-start-1 lg:mt-20"
+              className="lg:col-span-4 lg:col-start-1 lg:mt-28"
             >
               <div className="rounded-lg overflow-hidden">
                 <img
@@ -167,7 +167,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="lg:col-span-5 lg:col-start-7 relative"
+              className="lg:col-span-5 lg:col-start-7 relative lg:-mt-4"
             >
               <div className="rounded-lg overflow-hidden">
                 <img
@@ -178,7 +178,7 @@ const AboutSection = () => {
               </div>
 
               {/* Overlapping info card */}
-              <div className="absolute top-4 right-0 lg:-right-4 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
+              <div className="absolute top-0 right-0 lg:-right-6 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
                 {/* Quote / chevron icon */}
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
