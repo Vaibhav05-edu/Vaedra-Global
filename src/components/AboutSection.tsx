@@ -131,14 +131,16 @@ const AboutSection = () => {
           >
             <a
               href="#services"
-              className="group w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
+              className="group relative w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
             >
-              <span className="font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
+              {/* Fill effect */}
+              <span className="absolute inset-0 rounded-full bg-primary scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
+              <span className="relative z-10 font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
                 EXPLORE US
                 <br />
                 MORE
               </span>
-              <ArrowUpRight className="w-5 h-5 mt-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="relative z-10 w-5 h-5 mt-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </motion.div>
 
