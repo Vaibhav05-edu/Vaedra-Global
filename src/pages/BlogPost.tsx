@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/lib/blogPosts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
