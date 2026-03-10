@@ -132,7 +132,7 @@ const HeroSection = () => {
 
               {/* Red-tinted image */}
               <div className="absolute left-0 bottom-0 w-[55%] h-[85%] rounded-t-full overflow-hidden">
-                <div className="absolute inset-0 bg-red-600/40 mix-blend-multiply z-10" />
+                <div className="absolute inset-0 bg-destructive/40 mix-blend-multiply z-10" />
                 <img
                   src={heroPerson1}
                   alt="Team member"
