@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowRight, ArrowDownRight, Play } from "lucide-react";
 import heroPerson1 from "@/assets/hero-person-1.jpg";
 import heroPerson2 from "@/assets/hero-person-2.jpg";
