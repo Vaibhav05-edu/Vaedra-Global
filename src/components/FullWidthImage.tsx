@@ -26,7 +26,7 @@ const FullWidthVideo = () => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         className="w-full h-[50vh] md:h-[70vh] object-cover block"
         style={{ minHeight: '300px', background: '#000' }}
       >
