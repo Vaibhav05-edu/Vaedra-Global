@@ -52,7 +52,7 @@ const TakeChargeSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-            className="absolute left-1/2 -translate-x-1/2 top-0 z-30 pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 -top-10 md:-top-12 lg:-top-14 z-30 pointer-events-none"
           >
             <img
               src={avatarHead}
