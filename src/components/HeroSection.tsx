@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowRight, ArrowDownRight, Play } from "lucide-react";
 import heroPerson1 from "@/assets/hero-person-1.jpg";
 import heroPerson2 from "@/assets/hero-person-2.jpg";
@@ -8,8 +9,18 @@ import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Left image moves slower (parallax up), right image moves faster (parallax down)
+  const leftY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const rightY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
   return (
-    <section id="home" className="relative min-h-screen bg-background pt-20 overflow-x-hidden">
+    <section ref={sectionRef} id="home" className="relative min-h-screen bg-background pt-20 overflow-x-hidden">
       <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
@@ -127,8 +138,8 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              style={{ y: leftY, height: "90%" }}
               className="absolute left-0 bottom-0 w-[48%] sm:w-[55%] rounded-t-[100px] sm:rounded-t-[180px] overflow-hidden"
-              style={{ height: "90%" }}
             >
               <div className="absolute inset-0 bg-destructive/50 mix-blend-multiply z-10" />
               <img
@@ -143,8 +154,8 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: -30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              style={{ y: rightY, height: "72%" }}
               className="absolute right-0 top-0 w-[55%] sm:w-[58%] rounded-b-[100px] sm:rounded-b-[180px] overflow-hidden z-[5]"
-              style={{ height: "72%" }}
             >
               <img
                 src={heroPerson2}
