@@ -19,7 +19,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display font-bold uppercase leading-[0.88] tracking-tight text-foreground text-[4.5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10.5rem]"
+              className="font-display font-bold uppercase leading-[0.85] tracking-tight text-foreground text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]"
             >
               WE ARE
               <br />
