@@ -49,24 +49,24 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="absolute right-0 top-4 lg:top-8 hidden md:flex items-center"
+           className="absolute right-4 lg:right-0 top-0 lg:top-4 hidden md:flex items-center gap-0"
           >
-            {/* Lime green triangle (left half) */}
+            {/* Lime green triangle (left half - pointing right) */}
             <div
               className="w-0 h-0"
               style={{
-                borderTop: "45px solid transparent",
-                borderBottom: "45px solid transparent",
-                borderRight: "40px solid hsl(var(--primary))",
+                borderTop: "50px solid transparent",
+                borderBottom: "50px solid transparent",
+                borderRight: "45px solid hsl(var(--primary))",
               }}
             />
-            {/* White triangle (right half) */}
+            {/* White triangle (right half - pointing left) */}
             <div
               className="w-0 h-0"
               style={{
-                borderTop: "55px solid transparent",
-                borderBottom: "55px solid transparent",
-                borderLeft: "55px solid hsl(var(--foreground))",
+                borderTop: "60px solid transparent",
+                borderBottom: "60px solid transparent",
+                borderLeft: "60px solid hsl(var(--foreground))",
               }}
             />
           </motion.div>
