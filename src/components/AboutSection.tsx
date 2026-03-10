@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import aboutAvatar from "@/assets/about-avatar.png";
 import aboutOffice from "@/assets/about-office.jpg";
@@ -6,7 +7,19 @@ import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
+const springConfig = { stiffness: 50, damping: 20, mass: 0.5 };
+
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const avatarY = useSpring(useTransform(scrollYProgress, [0, 1], [80, -80]), springConfig);
+  const officeY = useSpring(useTransform(scrollYProgress, [0, 1], [60, -40]), springConfig);
+  const cardY = useSpring(useTransform(scrollYProgress, [0, 1], [40, -60]), springConfig);
+  const ctaY = useSpring(useTransform(scrollYProgress, [0, 1], [50, -50]), springConfig);
   return (
     <section id="about" className="bg-background py-16 sm:py-20 lg:py-28 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
