@@ -10,7 +10,7 @@ const CTASection = () => {
           viewport={{ once: true }}
           className="font-display text-3xl md:text-4xl uppercase text-foreground mb-4"
         >
-          👋 Connect with the Founder!
+          👋 Hello!
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -21,6 +21,15 @@ const CTASection = () => {
         >
           Let's Talk
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="font-body text-lg text-muted-foreground mb-6"
+        >
+          Connect with the Founder
+        </motion.p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
           <motion.a
             href="mailto:vaibhav@vaedraglobal.app"
