@@ -156,8 +156,8 @@ const AboutSection = () => {
             >
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src={heroBg}
-                  alt="Team collaboration workspace"
+                  src={aboutTeamCollab}
+                  alt="Team collaboration"
                   className="w-full h-48 md:h-56 lg:h-52 object-cover"
                 />
               </div>
