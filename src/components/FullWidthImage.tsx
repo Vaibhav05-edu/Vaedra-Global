@@ -14,7 +14,9 @@ const FullWidthVideo = () => {
         loop
         muted
         playsInline
-        className="w-full h-[50vh] md:h-[70vh] object-cover"
+        preload="auto"
+        className="w-full h-[50vh] md:h-[70vh] object-cover block"
+        style={{ minHeight: '300px' }}
       />
     </motion.section>
   );
