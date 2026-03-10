@@ -10,7 +10,7 @@ const CTASection = () => {
           viewport={{ once: true }}
           className="font-display text-3xl md:text-4xl uppercase text-foreground mb-4"
         >
-          👋 Hello!
+          👋 Connect with the Founder!
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
