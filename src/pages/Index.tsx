@@ -30,7 +30,7 @@ const Index = () => {
       <FullWidthImage />
       <TestimonialsSection />
       <FAQSection />
-      
+      <ExperienceCTA />
       <BlogSection />
       <CTASection />
       <Footer />
