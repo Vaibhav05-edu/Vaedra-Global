@@ -23,14 +23,14 @@ const CTASection = () => {
         </motion.h2>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
           <motion.a
-            href="mailto:hello@example.com"
+            href="mailto:vaibhav@vaedraglobal.app"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="font-body text-3xl md:text-5xl text-foreground/80 underline underline-offset-8 decoration-1 hover:text-highlight transition-colors"
           >
-            hello@example.com
+            vaibhav@vaedraglobal.app
           </motion.a>
           <motion.a
             href="https://cal.com/vaedra-global-agency"
