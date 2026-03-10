@@ -173,8 +173,8 @@ const AboutSection = () => {
             >
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src={aboutImg}
-                  alt="Modern office workspace"
+                  src={aboutOffice}
+                  alt="Modern creative office"
                   className="w-full h-72 md:h-80 lg:h-[420px] object-cover"
                 />
               </div>
