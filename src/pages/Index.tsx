@@ -4,6 +4,7 @@ import BrandSlider from "@/components/BrandSlider";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import TakeChargeSection from "@/components/TakeChargeSection";
+import EmpoweringSection from "@/components/EmpoweringSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import FullWidthImage from "@/components/FullWidthImage";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -20,6 +21,7 @@ const Index = () => {
       <BrandSlider />
       <AboutSection />
       <TakeChargeSection />
+      <EmpoweringSection />
       <PortfolioSection />
       <FullWidthImage />
       <TestimonialsSection />
