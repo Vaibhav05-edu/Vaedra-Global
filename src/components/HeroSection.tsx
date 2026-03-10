@@ -159,7 +159,7 @@ const HeroSection = () => {
             </div>
 
             {/* Diagonal arrow button */}
-            <div className="absolute z-20" style={{ right: "5%", bottom: "30%" }}>
+            <div className="absolute z-20" style={{ right: "5%", bottom: "32%" }}>
               <a
                 href="#about"
                 className="w-12 h-12 rounded-full border border-muted-foreground/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
