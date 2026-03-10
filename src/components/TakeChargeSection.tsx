@@ -93,13 +93,14 @@ const TakeChargeSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              className="px-6 lg:px-10 py-8 md:py-0"
+              className="px-6 lg:px-10 py-8 md:py-0 group cursor-pointer"
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <div className="mb-6">{team.icon}</div>
-              <h3 className="font-display text-xl md:text-2xl font-bold uppercase leading-tight whitespace-pre-line mb-4">
+              <div className="mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">{team.icon}</div>
+              <h3 className="font-display text-xl md:text-2xl font-bold uppercase leading-tight whitespace-pre-line mb-4 transition-colors duration-300 group-hover:text-background">
                 {team.title}
               </h3>
-              <p className="font-body text-sm md:text-base leading-relaxed opacity-80">
+              <p className="font-body text-sm md:text-base leading-relaxed opacity-80 transition-opacity duration-300 group-hover:opacity-100">
                 {team.description}
               </p>
             </motion.div>
