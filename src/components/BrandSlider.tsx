@@ -37,12 +37,12 @@ const BrandSlider = () => {
           {[...brands, ...brands].map((brand, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[160px] lg:w-[200px] xl:w-[220px] mx-8 lg:mx-12 flex items-center justify-center"
+              className="flex-shrink-0 w-[200px] lg:w-[250px] xl:w-[280px] mx-10 lg:mx-14 flex items-center justify-center"
             >
               <img
                 src={brand.src}
                 alt={brand.alt}
-                className="max-h-[50px] lg:max-h-[60px] xl:max-h-[70px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
+                className="max-h-[70px] lg:max-h-[85px] xl:max-h-[100px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
               />
             </div>
           ))}
