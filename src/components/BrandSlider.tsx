@@ -33,17 +33,17 @@ const BrandSlider = () => {
 
       {/* Logo marquee */}
       <div className="relative z-[2] overflow-hidden py-10 lg:py-12">
-        <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center whitespace-nowrap">
-          {[...brands, ...brands].map((brand, i) => (
+        <div className="animate-marquee flex items-center whitespace-nowrap" style={{ animationDuration: "35s" }}>
+          {[...brands, ...brands, ...brands].map((brand, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[200px] lg:w-[250px] xl:w-[280px] mx-10 lg:mx-14 flex items-center justify-center"
+              className="flex-shrink-0 mx-4 sm:mx-6 lg:mx-8 flex items-center justify-center"
             >
               <img
                 src={brand.src}
                 alt={brand.alt}
                 loading="lazy"
-                className="max-h-[70px] lg:max-h-[85px] xl:max-h-[100px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
+                className="max-h-[50px] sm:max-h-[65px] lg:max-h-[80px] w-auto object-contain opacity-60 hover:opacity-90 transition-opacity invert brightness-75"
               />
             </div>
           ))}
