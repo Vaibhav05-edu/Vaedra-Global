@@ -21,51 +21,49 @@ const CTASection = () => {
         >
           Let's Talk
         </motion.h2>
-        <div className="relative inline-block mb-6">
+        <div className="relative mb-10">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="font-body text-lg text-muted-foreground"
+            className="font-body text-lg text-muted-foreground inline-flex items-center gap-3"
           >
             Connect with the Founder
-          </motion.p>
-          {/* Curved animated arrow pointing down to email */}
-          <motion.svg
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="absolute left-1/2 -translate-x-1/2 top-full mt-1 w-12 h-10"
-            viewBox="0 0 48 40"
-            fill="none"
-          >
-            <motion.path
-              d="M24 2 C 24 2, 10 8, 14 20 C 18 32, 24 36, 24 36"
-              stroke="hsl(var(--primary))"
-              strokeWidth="2"
-              strokeLinecap="round"
-              fill="none"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-            />
-            {/* Arrowhead */}
-            <motion.path
-              d="M20 32 L24 38 L28 32"
-              stroke="hsl(var(--primary))"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
+            <motion.svg
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 1.2, duration: 0.3 }}
-            />
-          </motion.svg>
+              transition={{ delay: 0.4 }}
+              className="w-16 h-12 -mb-6"
+              viewBox="0 0 64 48"
+              fill="none"
+            >
+              <motion.path
+                d="M4 4 C 20 4, 40 8, 48 20 C 56 32, 44 44, 32 44"
+                stroke="hsl(var(--primary))"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+              />
+              <motion.path
+                d="M36 38 L32 46 L26 40"
+                stroke="hsl(var(--primary))"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.2, duration: 0.3 }}
+              />
+            </motion.svg>
+          </motion.p>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
           <motion.a
