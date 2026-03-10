@@ -31,6 +31,18 @@ const CTASection = () => {
         >
           hello@example.com
         </motion.a>
+        <motion.a
+          href="https://cal.com/vaedra-global-agency"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="inline-flex mt-10 font-display text-lg uppercase tracking-wider bg-primary text-primary-foreground px-8 py-4 rounded-full hover:bg-primary/90 transition-colors"
+        >
+          Book a Call
+        </motion.a>
       </div>
     </section>
   );
