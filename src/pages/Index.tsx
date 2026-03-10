@@ -21,6 +21,7 @@ const Index = () => {
       <BrandSlider />
       <AboutSection />
       <TakeChargeSection />
+      <EmpoweringSection />
       <PortfolioSection />
       <FullWidthImage />
       <TestimonialsSection />
