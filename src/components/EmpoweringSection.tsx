@@ -11,7 +11,7 @@ const skills = [
 
 const EmpoweringSection = () => {
   return (
-    <section className="bg-foreground py-24 lg:py-32 overflow-hidden">
+    <section className="bg-[hsl(0,0%,5%)] py-24 lg:py-32 overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 xl:px-16">
         {/* Top: Heading + description */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-16 lg:mb-20">
