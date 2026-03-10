@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import aboutImg from "@/assets/about-wide.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import aboutTeamCollab from "@/assets/about-team-collab.jpg";
+import aboutOffice from "@/assets/about-office.jpg";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
@@ -156,8 +156,8 @@ const AboutSection = () => {
             >
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src={heroBg}
-                  alt="Team collaboration workspace"
+                  src={aboutTeamCollab}
+                  alt="Team collaboration"
                   className="w-full h-48 md:h-56 lg:h-52 object-cover"
                 />
               </div>
@@ -173,8 +173,8 @@ const AboutSection = () => {
             >
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src={aboutImg}
-                  alt="Modern office workspace"
+                  src={aboutOffice}
+                  alt="Modern creative office"
                   className="w-full h-72 md:h-80 lg:h-[420px] object-cover"
                 />
               </div>
