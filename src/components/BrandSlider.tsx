@@ -16,26 +16,26 @@ const brands = [
 
 const BrandSlider = () => {
   return (
-    <section className="relative bg-secondary overflow-visible">
-      {/* Large geometric background decoration - semi-circle + green square */}
-      <div className="absolute -top-[280px] left-0 w-[400px] h-[560px] z-0 hidden md:block pointer-events-none">
-        {/* Large grey semi-circle */}
-        <div className="absolute left-[-100px] top-0 w-[360px] h-[360px] rounded-full border-[60px] border-muted-foreground/15" />
-        {/* Grey rectangle behind green */}
-        <div className="absolute left-[80px] bottom-[40px] w-[100px] h-[120px] bg-muted-foreground/10 rounded-sm" />
+    <section className="relative bg-secondary">
+      {/* Large geometric background decoration spanning hero into this section */}
+      <div className="absolute -top-[300px] left-0 w-[400px] h-[600px] z-[1] hidden md:block pointer-events-none">
+        {/* Large grey semi-circle (ring) */}
+        <div className="absolute left-[-120px] top-[60px] w-[380px] h-[380px] rounded-full border-[55px] border-muted-foreground/12" />
+        {/* Grey rectangle */}
+        <div className="absolute left-[90px] bottom-[50px] w-[90px] h-[130px] bg-muted-foreground/10" />
         {/* Lime green square */}
-        <div className="absolute left-[140px] bottom-[30px] w-[90px] h-[110px] bg-primary" />
+        <div className="absolute left-[150px] bottom-[40px] w-[85px] h-[110px] bg-primary" />
       </div>
 
-      {/* Logo marquee area */}
-      <div className="relative z-10 overflow-hidden py-8 lg:py-10 pl-[280px] md:pl-[300px]">
-        <div className="animate-marquee flex items-center gap-24 lg:gap-32 whitespace-nowrap">
+      {/* Logo marquee */}
+      <div className="relative z-[2] overflow-hidden py-8 lg:py-10">
+        <div className="ml-[260px] md:ml-[300px] animate-marquee flex items-center gap-24 lg:gap-36 whitespace-nowrap">
           {[...brands, ...brands].map((brand, i) => (
             <img
               key={i}
               src={brand.src}
               alt={brand.alt}
-              className="h-14 lg:h-16 xl:h-[4.5rem] w-auto object-contain opacity-50 hover:opacity-80 transition-opacity grayscale brightness-[2.5] contrast-[0.8]"
+              className="h-12 lg:h-14 xl:h-16 w-auto min-w-[120px] object-contain opacity-50 hover:opacity-80 transition-opacity grayscale brightness-[2.5] contrast-75"
             />
           ))}
         </div>
