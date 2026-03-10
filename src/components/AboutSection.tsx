@@ -119,47 +119,51 @@ const AboutSection = () => {
           <div className="lg:col-span-5" />
         </div>
 
-        {/* ===== CTA Circle + Bottom Images ===== */}
+        {/* ===== CTA Circle + Avatar + Bottom Images ===== */}
         <div className="relative mt-8 lg:mt-0">
-          {/* Large lime circle CTA - positioned center-left */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-            className="relative lg:absolute lg:left-[28%] lg:-top-16 z-10 flex justify-center lg:justify-start mb-10 lg:mb-0"
-          >
-            <a
-              href="#services"
-              className="group relative w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
-            >
-              {/* Fill effect */}
-              <span className="absolute inset-0 rounded-full bg-primary scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
-              <span className="relative z-10 font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
-                EXPLORE US
-                <br />
-                MORE
-              </span>
-              <ArrowUpRight className="relative z-10 w-5 h-5 mt-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-          </motion.div>
-
-          {/* Bottom images row */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-10 lg:mt-16">
-            {/* Left image */}
+          {/* Avatar + CTA grouped together */}
+          <div className="relative lg:absolute lg:left-[18%] lg:-top-16 z-20 flex justify-center lg:justify-start mb-10 lg:mb-0">
+            {/* CTA Button */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.7 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="lg:col-span-4 lg:col-start-1 lg:mt-28 flex items-end justify-center"
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            >
+              <a
+                href="#services"
+                className="group relative w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 rounded-full border border-foreground bg-transparent flex flex-col items-center justify-center text-foreground overflow-hidden hover:border-primary hover:text-primary-foreground transition-colors duration-500 animate-[swing_3s_ease-in-out_infinite]"
+              >
+                <span className="absolute inset-0 rounded-full bg-primary scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
+                <span className="relative z-10 font-display text-base md:text-lg uppercase font-bold tracking-wide leading-tight text-center">
+                  EXPLORE US
+                  <br />
+                  MORE
+                </span>
+                <ArrowUpRight className="relative z-10 w-5 h-5 mt-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            </motion.div>
+
+            {/* Avatar leaning on the button */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 150 }}
+              className="absolute -right-40 md:-right-52 lg:-right-60 -top-32 md:-top-44 lg:-top-52 z-30"
             >
               <img
                 src={aboutAvatar}
-                alt="Animated avatar character"
-                className="w-full h-56 md:h-64 lg:h-72 object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+                alt="Avatar character in tuxedo"
+                className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
               />
             </motion.div>
+          </div>
+
+          {/* Bottom images row */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-10 lg:mt-16">
+            {/* Spacer for avatar area */}
+            <div className="lg:col-span-5 lg:col-start-1" />
 
             {/* Right image + overlapping card */}
             <motion.div
@@ -179,7 +183,6 @@ const AboutSection = () => {
 
               {/* Overlapping info card */}
               <div className="absolute top-0 right-0 lg:-right-6 bg-card border border-border rounded-xl p-6 lg:p-8 w-56 md:w-64 lg:w-72 z-10">
-                {/* Quote / chevron icon */}
                 <div className="flex gap-0.5 mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-highlight">
                     <path d="M9 4L15 12L9 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
