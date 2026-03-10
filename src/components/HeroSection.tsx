@@ -77,7 +77,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex items-start gap-6 mt-16 md:mt-20 lg:mt-24 ml-8 md:ml-16 lg:ml-28"
+              className="flex items-start gap-6 mt-10 md:mt-14 lg:mt-16 ml-8 md:ml-16 lg:ml-28"
             >
               <a
                 href="#about"
