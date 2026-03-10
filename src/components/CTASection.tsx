@@ -17,32 +17,34 @@ const CTASection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] font-bold uppercase leading-[0.85] text-foreground mb-8"
+          className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] font-bold uppercase leading-[0.85] text-foreground mb-12"
         >
           Let's Talk
         </motion.h2>
-        <motion.a
-          href="mailto:hello@example.com"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="font-body text-3xl md:text-5xl text-foreground/80 underline underline-offset-8 decoration-1 hover:text-highlight transition-colors"
-        >
-          hello@example.com
-        </motion.a>
-        <motion.a
-          href="https://cal.com/vaedra-global-agency"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="inline-flex mt-10 font-display text-lg uppercase tracking-wider bg-primary text-primary-foreground px-8 py-4 rounded-full hover:bg-primary/90 transition-colors"
-        >
-          Book a Call
-        </motion.a>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+          <motion.a
+            href="mailto:hello@example.com"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="font-body text-3xl md:text-5xl text-foreground/80 underline underline-offset-8 decoration-1 hover:text-highlight transition-colors"
+          >
+            hello@example.com
+          </motion.a>
+          <motion.a
+            href="https://cal.com/vaedra-global-agency"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="font-display text-lg uppercase tracking-wider bg-primary text-primary-foreground px-8 py-4 rounded-full hover:bg-primary/90 transition-colors"
+          >
+            Book a Call
+          </motion.a>
+        </div>
       </div>
     </section>
   );
