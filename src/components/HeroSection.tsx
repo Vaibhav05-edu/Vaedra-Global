@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown, ArrowRight, ArrowDownRight, Play } from "lucide-react";
 import heroPerson1 from "@/assets/hero-person-1.jpg";
 import heroPerson2 from "@/assets/hero-person-2.jpg";
@@ -8,6 +8,8 @@ import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
+const springConfig = { stiffness: 50, damping: 20, mass: 0.5 };
+
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -15,16 +17,24 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  // Left image moves slower (parallax up), right image moves faster (parallax down)
-  const leftY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  // Stronger parallax values for a noticeable effect
+  const leftYRaw = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const rightYRaw = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const textYRaw = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  // Spring-smoothed for buttery feel
+  const leftY = useSpring(leftYRaw, springConfig);
+  const rightY = useSpring(rightYRaw, springConfig);
+  const textY = useSpring(textYRaw, springConfig);
+  const heroOpacity = useSpring(opacityRaw, springConfig);
 
   return (
     <section ref={sectionRef} id="home" className="relative min-h-screen bg-background pt-20 overflow-x-hidden">
       <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-4 lg:pt-8">
         <div className="flex flex-col lg:flex-row items-start">
           {/* ===== LEFT SIDE ===== */}
-          <div className="relative z-10 flex-1 min-w-0">
+          <motion.div style={{ y: textY, opacity: heroOpacity }} className="relative z-10 flex-1 min-w-0">
             {/* WE ARE / SKILLED IN */}
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
@@ -110,7 +120,7 @@ const HeroSection = () => {
                 </a>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* ===== RIGHT SIDE - Images ===== */}
           <motion.div
