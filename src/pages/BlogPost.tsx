@@ -69,6 +69,7 @@ const BlogPost = () => {
             </div>
           </motion.div>
         </div>
+      </article>
       {/* Related Posts */}
       <section className="bg-secondary py-24">
         <div className="container mx-auto px-6 max-w-5xl">
