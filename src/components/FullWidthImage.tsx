@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import heroImg from "@/assets/hero-bg.jpg";
 
-const FullWidthImage = () => {
+const FullWidthVideo = () => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -9,13 +8,16 @@ const FullWidthImage = () => {
       viewport={{ once: true }}
       className="w-full"
     >
-      <img
-        src={heroImg}
-        alt="Agency workspace"
+      <video
+        src="/videos/showcase.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
         className="w-full h-[50vh] md:h-[70vh] object-cover"
       />
     </motion.section>
   );
 };
 
-export default FullWidthImage;
+export default FullWidthVideo;
