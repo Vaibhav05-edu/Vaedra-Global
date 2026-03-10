@@ -109,6 +109,7 @@ const EmpoweringSection = () => {
               <img
                 src={aboutTeamCollab}
                 alt="Team collaboration"
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </div>

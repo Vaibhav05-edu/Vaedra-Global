@@ -179,6 +179,7 @@ const AboutSection = () => {
                 <img
                   src={aboutOffice}
                   alt="Modern creative office"
+                  loading="lazy"
                   className="w-full h-72 md:h-80 lg:h-[420px] object-cover"
                 />
               </div>

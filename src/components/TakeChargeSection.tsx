@@ -57,6 +57,7 @@ const TakeChargeSection = () => {
             <img
               src={avatarHead}
               alt="Avatar peeking"
+              loading="lazy"
               className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain drop-shadow-lg"
             />
           </motion.div>
