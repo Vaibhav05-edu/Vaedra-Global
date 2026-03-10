@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://vaedraglobal.com/sitemap.xml
+Sitemap: https://vaedraglobal.app/sitemap.xml
