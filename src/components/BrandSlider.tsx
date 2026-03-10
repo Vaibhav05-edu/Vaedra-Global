@@ -6,16 +6,28 @@ import logoHp from "@/assets/logo-hp.png";
 import logoVmware from "@/assets/logo-vmware.png";
 import logoMicrosoft from "@/assets/logo-microsoft.png";
 import logoApple from "@/assets/logo-apple.png";
+import logoGoogle from "@/assets/logo-google.png";
+import logoAmazon from "@/assets/logo-amazon.png";
+import logoSamsung from "@/assets/logo-samsung.png";
+import logoCisco from "@/assets/logo-cisco.png";
+import logoAdobe from "@/assets/logo-adobe.png";
+import logoNvidia from "@/assets/logo-nvidia.png";
 
 const brands = [
   { src: logoDell, alt: "Dell" },
   { src: logoOracle, alt: "Oracle" },
   { src: logoIbm, alt: "IBM" },
+  { src: logoGoogle, alt: "Google" },
   { src: logoIntel, alt: "Intel" },
+  { src: logoAmazon, alt: "Amazon" },
   { src: logoHp, alt: "HP" },
+  { src: logoNvidia, alt: "Nvidia" },
   { src: logoVmware, alt: "VMware" },
+  { src: logoSamsung, alt: "Samsung" },
   { src: logoMicrosoft, alt: "Microsoft" },
+  { src: logoCisco, alt: "Cisco" },
   { src: logoApple, alt: "Apple" },
+  { src: logoAdobe, alt: "Adobe" },
 ];
 
 const BrandSlider = () => {
