@@ -51,7 +51,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: 'Vaedra Global <onboarding@resend.dev>',
-        to: ['vaibhav@vaedraglobal.app'],
+        to: ['vexora.enquiry.in@gmail.com'],
         subject: `New Lead: ${name || email} — ${source === 'exit_popup' ? 'Exit Popup' : 'Contact Form'}`,
         html: htmlContent,
       }),
