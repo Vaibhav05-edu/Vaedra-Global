@@ -33,15 +33,19 @@ const LeadCaptureForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("leads").insert({
+      const leadData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim() || null,
         message: formData.message.trim() || null,
         source: "contact_form",
-      });
+      };
 
+      const { error } = await supabase.from("leads").insert(leadData);
       if (error) throw error;
+
+      // Send email notification (fire & forget)
+      supabase.functions.invoke("notify-lead", { body: leadData }).catch(console.error);
 
       toast.success("Thank you! We'll get back to you shortly.");
       setFormData({ name: "", email: "", phone: "", message: "" });
