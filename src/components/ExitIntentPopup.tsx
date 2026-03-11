@@ -42,13 +42,17 @@ const ExitIntentPopup = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("leads").insert({
+      const leadData = {
         name: "Exit Intent Lead",
         email: email.trim(),
         source: "exit_popup",
-      });
+      };
 
+      const { error } = await supabase.from("leads").insert(leadData);
       if (error) throw error;
+
+      // Send email notification (fire & forget)
+      supabase.functions.invoke("notify-lead", { body: leadData }).catch(console.error);
 
       toast.success("Thanks! We'll be in touch soon.");
       setEmail("");
