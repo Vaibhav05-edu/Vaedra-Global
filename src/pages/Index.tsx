@@ -14,6 +14,9 @@ import BlogSection from "@/components/BlogSection";
 import ExperienceCTA from "@/components/ExperienceCTA";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import LeadCaptureForm from "@/components/LeadCaptureForm";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 const Index = () => {
   return (
@@ -29,11 +32,14 @@ const Index = () => {
       <ServicesSection />
       <FullWidthImage />
       <TestimonialsSection />
+      <LeadCaptureForm />
       <FAQSection />
       <ExperienceCTA />
       <BlogSection />
       <CTASection />
       <Footer />
+      <WhatsAppButton />
+      <ExitIntentPopup />
     </div>
   );
 };
