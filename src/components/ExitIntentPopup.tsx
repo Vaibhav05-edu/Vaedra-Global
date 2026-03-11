@@ -4,12 +4,14 @@ import { X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "vaedra_exit_popup_shown";
 
 const ExitIntentPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleMouseLeave = useCallback((e: MouseEvent) => {
     if (e.clientY <= 5 && !sessionStorage.getItem(STORAGE_KEY)) {
@@ -21,7 +23,7 @@ const ExitIntentPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       document.addEventListener("mouseleave", handleMouseLeave);
-    }, 5000); // Only activate after 5 seconds on page
+    }, 5000);
 
     return () => {
       clearTimeout(timer);
@@ -29,7 +31,7 @@ const ExitIntentPopup = () => {
     };
   }, [handleMouseLeave]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim() || !emailRegex.test(email)) {
@@ -37,13 +39,26 @@ const ExitIntentPopup = () => {
       return;
     }
 
-    const subject = encodeURIComponent("New Lead — Exit Intent Popup");
-    const body = encodeURIComponent(`Email: ${email}`);
-    window.open(`mailto:vaibhav@vaedraglobal.app?subject=${subject}&body=${body}`, "_blank");
+    setIsSubmitting(true);
 
-    toast.success("Thanks! We'll be in touch soon.");
-    setEmail("");
-    setIsOpen(false);
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: "Exit Intent Lead",
+        email: email.trim(),
+        source: "exit_popup",
+      });
+
+      if (error) throw error;
+
+      toast.success("Thanks! We'll be in touch soon.");
+      setEmail("");
+      setIsOpen(false);
+    } catch (err) {
+      console.error("Exit popup submission error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -96,9 +111,10 @@ const ExitIntentPopup = () => {
               />
               <Button
                 type="submit"
+                disabled={isSubmitting}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 font-teko uppercase tracking-wider px-6"
               >
-                Claim
+                {isSubmitting ? "..." : "Claim"}
               </Button>
             </form>
 

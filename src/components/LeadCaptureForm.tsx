@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const LeadCaptureForm = () => {
   const [formData, setFormData] = useState({
@@ -31,16 +32,25 @@ const LeadCaptureForm = () => {
 
     setIsSubmitting(true);
 
-    // Mailto fallback — replace with backend later
-    const subject = encodeURIComponent(`New Lead from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMessage: ${formData.message}`
-    );
-    window.open(`mailto:vaibhav@vaedraglobal.app?subject=${subject}&body=${body}`, "_blank");
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || null,
+        message: formData.message.trim() || null,
+        source: "contact_form",
+      });
 
-    toast.success("Thank you! We'll get back to you shortly.");
-    setFormData({ name: "", email: "", phone: "", message: "" });
-    setIsSubmitting(false);
+      if (error) throw error;
+
+      toast.success("Thank you! We'll get back to you shortly.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (err) {
+      console.error("Lead submission error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
