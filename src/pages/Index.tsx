@@ -15,6 +15,7 @@ import ExperienceCTA from "@/components/ExperienceCTA";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import GiftBoxPopup from "@/components/GiftBoxPopup";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 
