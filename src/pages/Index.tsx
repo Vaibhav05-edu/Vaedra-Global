@@ -39,6 +39,7 @@ const Index = () => {
       <BlogSection />
       <CTASection />
       <Footer />
+      <GiftBoxPopup />
       <WhatsAppButton />
       <ExitIntentPopup />
     </div>
