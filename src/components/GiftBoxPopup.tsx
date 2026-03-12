@@ -78,10 +78,11 @@ const GiftBoxPopup = () => {
                     <PartyPopper className="w-16 h-16 text-amber-400 mx-auto" />
                   </motion.div>
                   <h3 className="text-xl font-bold text-amber-400 mb-2 font-display">
-                    🎉 Congratulations!
+                    🎁 Congratulations!
                   </h3>
                   <p className="text-white/90 text-sm leading-relaxed mb-4">
-                    You got <span className="text-amber-400 font-bold text-lg">₹5,000 OFF</span> on offers between ₹15,000 to ₹20,000!
+                    You unlocked <span className="text-amber-400 font-bold text-lg">₹5,000 OFF</span> on our <span className="text-amber-300 font-semibold">Premium Animated Website</span> package only!
+                    <br /><span className="text-red-400 text-xs font-medium">(Valid till 29th March)</span>
                   </p>
                   <p className="text-amber-300/80 text-xs mb-4">
                     📸 Take a screenshot and share it to our WhatsApp!
