@@ -2,35 +2,21 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "CEO, TechStart",
-    feedback:
-      "Working with Vaedra Global transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
-    rating: 5,
-  },
-  {
-    name: "David Park",
-    role: "Founder, DesignCo",
-    feedback:
-      "The team's expertise in web design and development is unmatched. They understood our vision perfectly and brought it to life with stunning precision and innovative solutions.",
-    rating: 5,
-  },
-  {
-    name: "Emma Williams",
-    role: "Marketing Director, GrowthLab",
-    feedback:
-      "Vaedra Global delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
-    rating: 5,
-  },
-];
+import { useTestimonials } from "@/lib/testimonialsStore";
 
 const TestimonialsSection = () => {
+  const { testimonials } = useTestimonials();
   const [current, setCurrent] = useState(0);
 
-  const next = () => setCurrent((c) => (c + 1) % testimonials.length);
-  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
+  const safeIndex = testimonials.length > 0 ? current % testimonials.length : 0;
+  const activeItem = testimonials[safeIndex];
+
+  const next = () => {
+    if (testimonials.length) setCurrent((c) => (c + 1) % testimonials.length);
+  };
+  const prev = () => {
+    if (testimonials.length) setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
     <section className="bg-background py-16 sm:py-24 lg:py-32">
@@ -60,22 +46,29 @@ const TestimonialsSection = () => {
                 transition={{ duration: 0.4 }}
                 className="bg-card rounded-2xl p-5 sm:p-8 border border-border"
               >
-                <div className="flex gap-1 mb-3 sm:mb-4">
-                  {Array.from({ length: testimonials[current].rating }).map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-highlight text-highlight" />
-                  ))}
-                </div>
-                <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/90 leading-relaxed mb-6 sm:mb-8 italic">
-                  "{testimonials[current].feedback}"
-                </p>
-                <div>
-                  <p className="font-display text-lg sm:text-xl uppercase font-semibold text-foreground">
-                    {testimonials[current].name}
-                  </p>
-                  <p className="font-body text-sm text-muted-foreground">
-                    {testimonials[current].role}
-                  </p>
-                </div>
+                {activeItem ? (
+                  <>
+                    <div className="flex gap-1 mb-3 sm:mb-4">
+                      {Array.from({ length: activeItem.rating || 5 }).map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-highlight text-highlight" />
+                      ))}
+                    </div>
+                    <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/90 leading-relaxed mb-6 sm:mb-8 italic">
+                      "{activeItem.feedback}"
+                    </p>
+                    <div>
+                      <p className="font-display text-lg sm:text-xl uppercase font-semibold text-foreground">
+                        {activeItem.name}
+                      </p>
+                      <p className="font-body text-sm text-muted-foreground">
+                        {activeItem.role}
+                        {activeItem.company ? ` • ${activeItem.company}` : ""}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-muted-foreground">No testimonials available.</p>
+                )}
               </motion.div>
             </AnimatePresence>
 

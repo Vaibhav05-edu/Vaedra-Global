@@ -1,4 +1,12 @@
-const footerLinks = ["Agency", "Career", "Privacy", "Terms"];
+import { Link } from "react-router-dom";
+
+const footerLinks = [
+  { name: "Agency", href: "#" },
+  { name: "Career", href: "#" },
+  { name: "Privacy", href: "#" },
+  { name: "Terms", href: "#" },
+  { name: "Admin Portal", href: "/admin/login" },
+];
 const socialLinks = [
   { name: "Twitter", url: "#" },
   { name: "Dribbble", url: "#" },
@@ -16,15 +24,25 @@ const Footer = () => {
           </p>
 
           <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            {footerLinks.map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="font-display text-sm sm:text-lg uppercase text-foreground/60 hover:text-foreground transition-colors"
-              >
-                {link}
-              </a>
-            ))}
+            {footerLinks.map((link) =>
+              link.href.startsWith("/") ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="font-display text-sm sm:text-lg uppercase text-foreground/60 hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="font-display text-sm sm:text-lg uppercase text-foreground/60 hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </a>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-3 sm:gap-4">

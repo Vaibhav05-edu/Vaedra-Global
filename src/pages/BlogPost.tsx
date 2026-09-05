@@ -1,13 +1,14 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { blogPosts } from "@/lib/blogPosts";
+import { useJournalPosts } from "@/lib/journalStore";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const post = blogPosts.find((p) => p.slug === slug);
+  const { posts } = useJournalPosts();
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     return (

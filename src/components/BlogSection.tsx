@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { blogPosts } from "@/lib/blogPosts";
+import { useJournalPosts } from "@/lib/journalStore";
 
 const BlogSection = () => {
+  const { posts } = useJournalPosts();
   return (
     <section id="blog" className="bg-secondary py-16 sm:py-24 lg:py-32">
       <div className="container mx-auto px-4 sm:px-6">
@@ -41,7 +42,7 @@ const BlogSection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-          {blogPosts.map((post, i) => (
+          {posts.map((post, i) => (
             <motion.article
               key={post.slug}
               initial={{ opacity: 0, y: 40 }}

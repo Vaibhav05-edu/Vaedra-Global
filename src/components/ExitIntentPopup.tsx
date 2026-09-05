@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { addCapturedLead } from "@/lib/leadsStore";
 
 const STORAGE_KEY = "vaedra_exit_popup_shown";
 
@@ -50,6 +51,8 @@ const ExitIntentPopup = () => {
 
       const { error } = await supabase.from("leads").insert(leadData);
       if (error) throw error;
+
+      addCapturedLead({ ...leadData, phone: null, message: "Requested discount / early access via exit popup" });
 
       // Send email notification (fire & forget)
       supabase.functions.invoke("notify-lead", { body: leadData }).catch(console.error);
