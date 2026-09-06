@@ -42,13 +42,16 @@ const LeadCaptureForm = () => {
         source: "contact_form",
       };
 
-      const { error } = await supabase.from("leads").insert(leadData);
-      if (error) throw error;
+      // Attempt to save to Supabase if connected
+      try {
+        await supabase.from("leads").insert(leadData);
+        supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
+      } catch (supaErr) {
+        console.warn("Supabase insert skipped/failed, falling back to local store:", supaErr);
+      }
 
+      // Always save to internal leads store
       addCapturedLead(leadData);
-
-      // Send email notification (fire & forget)
-      supabase.functions.invoke("notify-lead", { body: leadData }).catch(console.error);
 
       toast.success("Thank you! We'll get back to you shortly.");
       setFormData({ name: "", email: "", phone: "", message: "" });
