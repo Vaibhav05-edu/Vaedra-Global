@@ -49,13 +49,16 @@ const ExitIntentPopup = () => {
         source: "exit_popup",
       };
 
-      const { error } = await supabase.from("leads").insert(leadData);
-      if (error) throw error;
+      // Attempt to save to Supabase if connected
+      try {
+        await supabase.from("leads").insert(leadData);
+        supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
+      } catch (supaErr) {
+        console.warn("Supabase insert skipped/failed, falling back to local store:", supaErr);
+      }
 
+      // Always save to internal leads store
       addCapturedLead({ ...leadData, phone: null, message: "Requested discount / early access via exit popup" });
-
-      // Send email notification (fire & forget)
-      supabase.functions.invoke("notify-lead", { body: leadData }).catch(console.error);
 
       toast.success("Thanks! We'll be in touch soon.");
       setEmail("");
