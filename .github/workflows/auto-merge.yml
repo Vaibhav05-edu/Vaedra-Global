@@ -1,0 +1,27 @@
+name: Auto Merge to Main
+
+on:
+  push:
+    branches:
+      - alphavirusboy/admin-panel
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "Vaibhav"
+          git config user.email "vaibhav.contact.in@gmail.com"
+
+      - name: Merge to main
+        run: |
+          git checkout main
+          git pull origin main
+          git merge origin/alphavirusboy/admin-panel --no-ff -m "Auto-merge: alphavirusboy/admin-panel into main"
+          git push origin main
