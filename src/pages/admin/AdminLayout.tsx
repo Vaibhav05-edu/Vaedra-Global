@@ -11,16 +11,18 @@ import {
   Menu,
   X,
   ShieldCheck,
+  Briefcase,
 } from "lucide-react";
 import logo from "@/assets/logo.webp";
 import { useAdminAuth } from "@/context/AdminAuthContext";
 import { AdminOverview } from "./AdminOverview";
+import { AdminPortfolio } from "./AdminPortfolio";
 import { AdminJournals } from "./AdminJournals";
 import { AdminTestimonials } from "./AdminTestimonials";
 import { AdminLeads } from "./AdminLeads";
 import { AdminSettings } from "./AdminSettings";
 
-type AdminTab = "overview" | "journals" | "testimonials" | "leads" | "settings";
+type AdminTab = "overview" | "portfolio" | "journals" | "testimonials" | "leads" | "settings";
 
 const AdminLayout: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
@@ -35,6 +37,7 @@ const AdminLayout: React.FC = () => {
 
   const navItems = [
     { id: "overview", label: "Overview", icon: LayoutDashboard },
+    { id: "portfolio", label: "Portfolio Projects", icon: Briefcase },
     { id: "journals", label: "Journals / Blog", icon: BookOpen },
     { id: "testimonials", label: "Testimonials", icon: Star },
     { id: "leads", label: "Leads & Inquiries", icon: Users },
@@ -224,6 +227,7 @@ const AdminLayout: React.FC = () => {
           {activeTab === "overview" && (
             <AdminOverview onNavigateTab={(tab) => setActiveTab(tab as AdminTab)} />
           )}
+          {activeTab === "portfolio" && <AdminPortfolio />}
           {activeTab === "journals" && <AdminJournals />}
           {activeTab === "testimonials" && <AdminTestimonials />}
           {activeTab === "leads" && <AdminLeads />}

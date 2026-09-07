@@ -8,6 +8,7 @@ export interface Testimonial {
   feedback: string;  // Review message
   rating: number;    // 1 - 5 stars
   avatar?: string;
+  reviewUrl?: string; // Verification URL (e.g. Google Maps, Google Business, Clutch, Trustpilot)
 }
 
 const DEFAULT_TESTIMONIALS: Testimonial[] = [
@@ -19,6 +20,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
     feedback:
       "Working with Vaedra Global transformed our digital presence. Their team delivered exceptional results that exceeded our expectations. The attention to detail and creative approach set them apart.",
     rating: 5,
+    reviewUrl: "https://maps.google.com/?q=Vaedra+Global",
   },
   {
     id: "test-2",
@@ -28,6 +30,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
     feedback:
       "The team's expertise in web design and development is unmatched. They understood our vision perfectly and brought it to life with stunning precision and innovative solutions.",
     rating: 5,
+    reviewUrl: "https://maps.google.com/?q=Vaedra+Global",
   },
   {
     id: "test-3",
@@ -37,6 +40,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
     feedback:
       "Vaedra Global delivered a complete digital transformation for our brand. Their strategic thinking combined with creative excellence produced remarkable results across all channels.",
     rating: 5,
+    reviewUrl: "https://maps.google.com/?q=Vaedra+Global",
   },
 ];
 

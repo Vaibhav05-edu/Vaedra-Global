@@ -36,15 +36,9 @@ const AdminLogin = () => {
         toast.success("Welcome back! Redirecting to dashboard...");
         navigate(from, { replace: true });
       } else {
-        toast.error("Invalid credentials. Try demo login: admin@vaedra.global / vaedra2026");
+        toast.error("Invalid email or password. Please try again.");
       }
     }, 400);
-  };
-
-  const handleDemoFill = () => {
-    setEmail("admin@vaedra.global");
-    setPassword("vaedra2026");
-    toast.info("Demo credentials loaded!");
   };
 
   return (
@@ -143,18 +137,6 @@ const AdminLogin = () => {
               {loading ? "Authenticating..." : "Access Dashboard"}
             </Button>
           </form>
-
-          {/* Demo helper */}
-          <div className="mt-6 pt-5 border-t border-border/60 text-center">
-            <p className="text-xs text-muted-foreground mb-2">Testing locally?</p>
-            <button
-              type="button"
-              onClick={handleDemoFill}
-              className="text-xs font-mono text-highlight hover:underline inline-flex items-center gap-1.5 py-1 px-3 rounded-md bg-secondary/80 border border-border"
-            >
-              ⚡ Auto-fill Demo Credentials
-            </button>
-          </div>
         </div>
 
         <p className="text-center text-xs text-muted-foreground/60 mt-6 font-mono">
