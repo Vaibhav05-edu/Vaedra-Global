@@ -1,28 +1,8 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ArrowUpRight } from "lucide-react";
-import { ProjectDetail, getProjectDetail } from "@/data/projectsData";
+import { usePortfolioProjects, ProjectDetail } from "@/lib/portfolioStore";
 import { ProjectDetailModal } from "@/components/ProjectDetailModal";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-
-const topRow = [
-  { image: project1, title: "Mastery", category: "Web Design", year: "2024" },
-  { image: project2, title: "BrandFlow", category: "Branding", year: "2024" },
-  { image: project3, title: "AppVerse", category: "Mobile App", year: "2023" },
-  { image: project4, title: "ShopElite", category: "E-Commerce", year: "2023" },
-  { image: project1, title: "Consultant", category: "Design", year: "2019" },
-];
-
-const bottomRow = [
-  { image: project3, title: "AppVerse", category: "Mobile App", year: "2023" },
-  { image: project4, title: "ShopElite", category: "E-Commerce", year: "2023" },
-  { image: project1, title: "Mastery", category: "Web Design", year: "2024" },
-  { image: project2, title: "BrandFlow", category: "Branding", year: "2024" },
-  { image: project3, title: "Creative", category: "Design", year: "2022" },
-];
 
 // SVG circular progress ring
 const ProgressRing = ({ progress, radius }: { progress: number; radius: number }) => {
@@ -66,6 +46,26 @@ const PortfolioSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
   const isMobile = useIsMobile();
+  const { projects } = usePortfolioProjects();
+
+  // Distribute projects across both tracks with repetition if needed to maintain full scrolling tracks
+  const { topRow, bottomRow } = useMemo(() => {
+    if (!projects || projects.length === 0) return { topRow: [], bottomRow: [] };
+
+    const ensureMinLength = (items: ProjectDetail[], min = 5): ProjectDetail[] => {
+      let result = [...items];
+      while (result.length < min) {
+        result = result.concat(items);
+      }
+      return result;
+    };
+
+    const top = ensureMinLength(projects, 5);
+    const shifted = projects.length > 1 ? [...projects.slice(1), projects[0]] : projects;
+    const bottom = ensureMinLength(shifted, 5);
+
+    return { topRow: top, bottomRow: bottom };
+  }, [projects]);
 
   const SCROLL_DISTANCE = isMobile ? 1200 : 2000;
 
@@ -125,17 +125,17 @@ const PortfolioSection = () => {
             >
               {topRow.map((project, i) => (
                 <div
-                  key={`top-${i}`}
-                  onClick={() => setSelectedProject(getProjectDetail(project.title))}
+                  key={`top-${project.id}-${i}`}
+                  onClick={() => setSelectedProject(project)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") setSelectedProject(getProjectDetail(project.title));
+                    if (e.key === "Enter" || e.key === " ") setSelectedProject(project);
                   }}
                   className="relative flex-shrink-0 w-[220px] sm:w-[300px] md:w-[380px] h-[35vh] sm:h-[42vh] rounded-xl overflow-hidden group cursor-pointer border border-border/40 hover:border-primary/60 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(202,254,0,0.25)]"
                 >
                   <img
-                    src={project.image}
+                    src={project.image || (project.images && project.images[0])}
                     alt={project.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -171,17 +171,17 @@ const PortfolioSection = () => {
             >
               {bottomRow.map((project, i) => (
                 <div
-                  key={`bottom-${i}`}
-                  onClick={() => setSelectedProject(getProjectDetail(project.title))}
+                  key={`bottom-${project.id}-${i}`}
+                  onClick={() => setSelectedProject(project)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") setSelectedProject(getProjectDetail(project.title));
+                    if (e.key === "Enter" || e.key === " ") setSelectedProject(project);
                   }}
                   className="relative flex-shrink-0 w-[220px] sm:w-[300px] md:w-[380px] h-[35vh] sm:h-[42vh] rounded-xl overflow-hidden group cursor-pointer border border-border/40 hover:border-primary/60 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(202,254,0,0.25)]"
                 >
                   <img
-                    src={project.image}
+                    src={project.image || (project.images && project.images[0])}
                     alt={project.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

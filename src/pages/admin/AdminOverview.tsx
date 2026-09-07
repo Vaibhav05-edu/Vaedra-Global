@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, BookOpen, Star, TrendingUp, ArrowRight, Download, Plus, Mail, MessageSquare } from "lucide-react";
+import { Users, BookOpen, Star, TrendingUp, ArrowRight, Download, Plus, Mail, MessageSquare, Briefcase } from "lucide-react";
 import { useLeads, exportLeadsToCSV } from "@/lib/leadsStore";
 import { useJournalPosts } from "@/lib/journalStore";
 import { useTestimonials } from "@/lib/testimonialsStore";
+import { usePortfolioProjects } from "@/lib/portfolioStore";
 import { Button } from "@/components/ui/button";
 
 interface AdminOverviewProps {
@@ -15,6 +16,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
   const { leads } = useLeads();
   const { posts } = useJournalPosts();
   const { testimonials } = useTestimonials();
+  const { projects } = usePortfolioProjects();
 
   const newLeadsCount = leads.filter((l) => l.status === "New").length;
   const contactFormCount = leads.filter((l) => l.source === "contact_form").length;
@@ -31,6 +33,13 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
       subtext: `${newLeadsCount} new unread leads`,
       icon: Users,
       color: "from-blue-500/20 to-cyan-500/20 text-cyan-400 border-cyan-500/30",
+    },
+    {
+      title: "Portfolio Projects",
+      value: projects.length.toString(),
+      subtext: "Live case studies",
+      icon: Briefcase,
+      color: "from-lime-500/20 to-emerald-500/20 text-lime-400 border-lime-500/30",
     },
     {
       title: "Published Journals",
@@ -67,14 +76,22 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             Welcome, Vaedra Admin
           </h1>
           <p className="font-body text-sm text-muted-foreground mt-1 max-w-xl">
-            Manage your digital agency's incoming leads, publish tech journal insights, and showcase verified client reviews.
+            Manage your digital agency's incoming leads, publish interactive portfolio case studies, publish tech journal insights, and showcase verified client reviews.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <Button
-            onClick={() => onNavigateTab("journals")}
+            onClick={() => onNavigateTab("portfolio")}
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-display uppercase tracking-wider text-xs sm:text-sm"
+          >
+            <Briefcase className="w-4 h-4 mr-1.5" />
+            Add Project
+          </Button>
+          <Button
+            onClick={() => onNavigateTab("journals")}
+            variant="outline"
+            className="border-border text-foreground hover:bg-secondary font-display uppercase tracking-wider text-xs sm:text-sm"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Add Journal
@@ -99,7 +116,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
         {stats.map((stat, i) => (
           <motion.div
             key={stat.title}
