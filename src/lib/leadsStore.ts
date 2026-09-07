@@ -17,68 +17,21 @@ export interface LeadItem {
 const STORAGE_KEY = "vaedra_leads_cache";
 const EVENT_NAME = "vaedra:leads_updated";
 
-const DEFAULT_SEED_LEADS: LeadItem[] = [
-  {
-    id: "lead-seed-1",
-    name: "Alexander Vance",
-    email: "a.vance@solaris-ai.io",
-    phone: "+1 (555) 234-5678",
-    message: "We need an enterprise-grade AI chatbot and RAG architecture for our customer support platform.",
-    source: "contact_form",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
-    status: "New",
-  },
-  {
-    id: "lead-seed-2",
-    name: "Mei-Ling Zhou",
-    email: "ml.zhou@fintechflow.com",
-    phone: "+44 20 7946 0912",
-    message: "Looking for full-stack developers to rebuild our web portal and mobile trading dashboard.",
-    source: "contact_form",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 14).toISOString(),
-    status: "Contacted",
-  },
-  {
-    id: "lead-seed-3",
-    name: "Marcus Aurelius",
-    email: "marcus@romeo-ventures.co",
-    phone: null,
-    message: "Requested 15% promotional consultation discount via exit intent.",
-    source: "exit_popup",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(),
-    status: "Qualified",
-  },
-  {
-    id: "lead-seed-4",
-    name: "Elena Rostova",
-    email: "elena@nordicdesign.se",
-    phone: "+46 8 123 4567",
-    message: "Complete redesign of our e-commerce brand identity and Shopify Plus storefront.",
-    source: "contact_form",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
-    status: "Closed",
-  },
-  {
-    id: "lead-seed-5",
-    name: "Rohan Sharma",
-    email: "rohan.sharma@zenithcloud.in",
-    phone: null,
-    message: "Subscribed for early access discount code via website exit prompt.",
-    source: "exit_popup",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString(),
-    status: "New",
-  },
-];
+// No fake default leads - all leads are 100% real
+const DEFAULT_SEED_LEADS: LeadItem[] = [];
 
 export const getLeads = (): LeadItem[] => {
   if (typeof window === "undefined") return DEFAULT_SEED_LEADS;
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SEED_LEADS));
-      return DEFAULT_SEED_LEADS;
+    if (!saved) return DEFAULT_SEED_LEADS;
+    const parsed: LeadItem[] = JSON.parse(saved);
+    // Automatically purge any old mock seed leads
+    const cleaned = parsed.filter((lead) => !lead.id.startsWith("lead-seed-"));
+    if (cleaned.length !== parsed.length) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cleaned));
     }
-    return JSON.parse(saved);
+    return cleaned;
   } catch {
     return DEFAULT_SEED_LEADS;
   }
@@ -86,20 +39,36 @@ export const getLeads = (): LeadItem[] => {
 
 export const saveLeads = (leads: LeadItem[]) => {
   if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+  // Clean out any seed leads before saving
+  const cleaned = leads.filter((lead) => !lead.id.startsWith("lead-seed-"));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cleaned));
   window.dispatchEvent(new CustomEvent(EVENT_NAME));
 };
 
-export const updateLeadStatus = (id: string, status: LeadStatus) => {
+export const updateLeadStatus = async (id: string, status: LeadStatus) => {
   const leads = getLeads();
   const updated = leads.map((lead) => (lead.id === id ? { ...lead, status } : lead));
   saveLeads(updated);
+
+  // Also attempt updating in Supabase if supported
+  try {
+    await supabase.from("leads").update({ status } as any).eq("id", id);
+  } catch {
+    // Local update already persisted
+  }
 };
 
-export const deleteLead = (id: string) => {
+export const deleteLead = async (id: string) => {
   const leads = getLeads();
   const filtered = leads.filter((lead) => lead.id !== id);
   saveLeads(filtered);
+
+  // Also attempt deleting from Supabase
+  try {
+    await supabase.from("leads").delete().eq("id", id);
+  } catch {
+    // Local deletion already persisted
+  }
 };
 
 export const addCapturedLead = (lead: Omit<LeadItem, "id" | "created_at" | "status"> & { id?: string }) => {
@@ -110,7 +79,7 @@ export const addCapturedLead = (lead: Omit<LeadItem, "id" | "created_at" | "stat
     created_at: new Date().toISOString(),
     status: "New",
   };
-  const updated = [newLead, ...leads];
+  const updated = [newLead, ...leads.filter((l) => l.id !== newLead.id)];
   saveLeads(updated);
   return newLead;
 };
@@ -147,16 +116,20 @@ export const useLeads = () => {
   const [leads, setLeads] = useState<LeadItem[]>(getLeads);
   const [loading, setLoading] = useState(false);
 
-  // Attempt to fetch from Supabase if connected
   useEffect(() => {
     let isMounted = true;
+
+    // 1. Fetch real leads from Supabase database
     const fetchFromSupabase = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
-        if (!error && data && data.length > 0 && isMounted) {
+        const { data, error } = await supabase
+          .from("leads")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (!error && data && isMounted) {
           const cached = getLeads();
-          // Merge database leads with existing local status tracking
           const merged: LeadItem[] = data.map((dbLead: any) => {
             const existing = cached.find((c) => c.id === dbLead.id || c.email === dbLead.email);
             return {
@@ -166,18 +139,18 @@ export const useLeads = () => {
               phone: dbLead.phone || null,
               message: dbLead.message || null,
               source: dbLead.source || "contact_form",
-              created_at: dbLead.created_at,
+              created_at: dbLead.created_at || new Date().toISOString(),
               status: existing ? existing.status : "New",
             };
           });
 
-          // Combine with any local-only leads
+          // Combine with any local leads
           const dbIds = new Set(data.map((d: any) => d.id));
           const localOnly = cached.filter((c) => !dbIds.has(c.id));
           saveLeads([...merged, ...localOnly]);
         }
-      } catch {
-        // Fallback safely to cached/demo leads
+      } catch (err) {
+        console.warn("Supabase fetch skipped/error:", err);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -185,13 +158,50 @@ export const useLeads = () => {
 
     fetchFromSupabase();
 
+    // 2. Realtime listener: new leads inserted into Supabase appear live
+    const channel = supabase
+      .channel("realtime-leads")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "leads" },
+        (payload) => {
+          if (payload.eventType === "INSERT") {
+            const newDbLead: any = payload.new;
+            const newLead: LeadItem = {
+              id: newDbLead.id,
+              name: newDbLead.name || "Anonymous",
+              email: newDbLead.email,
+              phone: newDbLead.phone || null,
+              message: newDbLead.message || null,
+              source: newDbLead.source || "contact_form",
+              created_at: newDbLead.created_at || new Date().toISOString(),
+              status: "New",
+            };
+            const current = getLeads();
+            if (!current.some((l) => l.id === newLead.id)) {
+              saveLeads([newLead, ...current]);
+            }
+          } else if (payload.eventType === "DELETE") {
+            const oldId = (payload.old as any)?.id;
+            if (oldId) {
+              const current = getLeads();
+              saveLeads(current.filter((l) => l.id !== oldId));
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    // 3. Local update listener
     const handleUpdate = () => {
       setLeads(getLeads());
     };
     window.addEventListener(EVENT_NAME, handleUpdate);
     window.addEventListener("storage", handleUpdate);
+
     return () => {
       isMounted = false;
+      supabase.removeChannel(channel);
       window.removeEventListener(EVENT_NAME, handleUpdate);
       window.removeEventListener("storage", handleUpdate);
     };
