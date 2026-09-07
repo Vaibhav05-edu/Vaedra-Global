@@ -247,6 +247,17 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             {imagesList.length} Screens Showcase
                           </span>
                         )}
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1 rounded-full bg-primary/20 border border-primary/40 text-primary font-mono text-xs flex items-center gap-1.5 hover:bg-primary/30 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            Visit Live
+                          </a>
+                        )}
                       </div>
 
                       <h2 className="font-display text-3xl sm:text-5xl font-bold uppercase text-foreground leading-[0.95] tracking-tight">
@@ -291,9 +302,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         <strong className="text-foreground">{project.client}</strong>
                       </span>
                     </div>
-                    <p className="font-body text-sm sm:text-base text-foreground/80 leading-relaxed">
+                    <div className="font-body text-sm sm:text-base text-foreground/85 leading-relaxed whitespace-pre-line">
                       {project.description}
-                    </p>
+                    </div>
                   </div>
 
                   {/* Key Deliverables */}
@@ -338,14 +349,33 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
                   {/* Action CTA Bar */}
                   <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <a
-                      href="#contact"
-                      onClick={onClose}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-display text-sm uppercase tracking-wider hover:bg-primary/90 transition-colors"
-                    >
-                      Start Similar Project
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
+                    <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                      {/* Visit Live Project button rendered only when liveUrl is present */}
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-display text-sm uppercase tracking-wider hover:bg-primary/90 transition-all font-semibold shadow-[0_0_20px_rgba(202,254,0,0.3)] hover:scale-[1.02]"
+                        >
+                          <span>Visit Live Project</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+
+                      <a
+                        href="#contact"
+                        onClick={onClose}
+                        className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-display text-sm uppercase tracking-wider transition-colors ${
+                          project.liveUrl
+                            ? "border border-border hover:bg-secondary text-foreground"
+                            : "bg-primary text-primary-foreground hover:bg-primary/90"
+                        }`}
+                      >
+                        Start Similar Project
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
 
                     <a
                       href="https://cal.com/vaedra-global-agency"
