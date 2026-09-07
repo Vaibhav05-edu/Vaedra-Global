@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Trash2, Edit3, Star, Building, User, Quote, X } from "lucide-react";
+import { Plus, Trash2, Edit3, Star, Building, User, Quote, X, ExternalLink, ShieldCheck, Link2 } from "lucide-react";
 import { useTestimonials, Testimonial } from "@/lib/testimonialsStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,12 +11,13 @@ export const AdminTestimonials: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Form Fields requested by user: ratings, review message, company, founder
+  // Form Fields: ratings, review message, company, founder, and verification URL
   const [rating, setRating] = useState(5);
   const [reviewMessage, setReviewMessage] = useState("");
   const [company, setCompany] = useState("");
   const [founderName, setFounderName] = useState("");
   const [founderRole, setFounderRole] = useState("Founder & CEO");
+  const [reviewUrl, setReviewUrl] = useState("");
 
   const resetForm = () => {
     setRating(5);
@@ -24,6 +25,7 @@ export const AdminTestimonials: React.FC = () => {
     setCompany("");
     setFounderName("");
     setFounderRole("Founder & CEO");
+    setReviewUrl("");
     setEditingId(null);
   };
 
@@ -39,6 +41,7 @@ export const AdminTestimonials: React.FC = () => {
     setCompany(item.company || "");
     setFounderName(item.name);
     setFounderRole(item.role || "CEO");
+    setReviewUrl(item.reviewUrl || "");
     setIsModalOpen(true);
   };
 
@@ -65,6 +68,7 @@ export const AdminTestimonials: React.FC = () => {
         company: company.trim(),
         feedback: reviewMessage.trim(),
         rating,
+        reviewUrl: reviewUrl.trim() || undefined,
       });
       toast.success("Testimonial updated successfully!");
     } else {
@@ -74,6 +78,7 @@ export const AdminTestimonials: React.FC = () => {
         company: company.trim(),
         feedback: reviewMessage.trim(),
         rating,
+        reviewUrl: reviewUrl.trim() || undefined,
       });
       toast.success("New client review added to the website!");
     }
@@ -159,6 +164,18 @@ export const AdminTestimonials: React.FC = () => {
                     {item.role ? `${item.role}, ` : ""}
                     <span className="text-primary font-medium">{item.company}</span>
                   </p>
+                  {item.reviewUrl && (
+                    <a
+                      href={item.reviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-mono text-primary hover:underline mt-1"
+                    >
+                      <ShieldCheck className="w-3 h-3 text-primary" />
+                      <span>Verified Review Link</span>
+                      <ExternalLink className="w-2.5 h-2.5 text-muted-foreground" />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -299,6 +316,26 @@ export const AdminTestimonials: React.FC = () => {
                   className="bg-background/50 border-border text-foreground text-sm leading-relaxed"
                   required
                 />
+              </div>
+
+              {/* Verification / Review URL */}
+              <div>
+                <label className="block text-xs font-mono uppercase text-muted-foreground mb-1.5">
+                  Verification / Review URL (Optional)
+                </label>
+                <div className="relative">
+                  <Link2 className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Input
+                    type="url"
+                    placeholder="e.g. https://maps.google.com/?cid=... or Clutch / Trustpilot review link"
+                    value={reviewUrl}
+                    onChange={(e) => setReviewUrl(e.target.value)}
+                    className="pl-9 bg-background/50 border-border text-foreground text-sm"
+                  />
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-1 font-body">
+                  Adds a "Verify Review" button linking to Google Maps, Google Business, or Clutch. Leave empty if none.
+                </p>
               </div>
 
               {/* Actions */}

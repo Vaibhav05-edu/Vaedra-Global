@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, ExternalLink, ShieldCheck } from "lucide-react";
 
 import { useTestimonials } from "@/lib/testimonialsStore";
+
+const getReviewLabel = (url?: string) => {
+  if (!url) return "Verify Review";
+  const lower = url.toLowerCase();
+  if (lower.includes("google") || lower.includes("maps.app")) return "View on Google";
+  if (lower.includes("clutch")) return "View on Clutch";
+  if (lower.includes("trustpilot")) return "View on Trustpilot";
+  if (lower.includes("linkedin")) return "View on LinkedIn";
+  return "Verify Review";
+};
 
 const TestimonialsSection = () => {
   const { testimonials } = useTestimonials();
@@ -48,22 +58,49 @@ const TestimonialsSection = () => {
               >
                 {activeItem ? (
                   <>
-                    <div className="flex gap-1 mb-3 sm:mb-4">
-                      {Array.from({ length: activeItem.rating || 5 }).map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-highlight text-highlight" />
-                      ))}
+                    <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+                      <div className="flex gap-1">
+                        {Array.from({ length: activeItem.rating || 5 }).map((_, i) => (
+                          <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-highlight text-highlight" />
+                        ))}
+                      </div>
+
+                      {activeItem.reviewUrl && (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-primary uppercase tracking-wider font-semibold">
+                          <ShieldCheck className="w-3 h-3" />
+                          Verified Client
+                        </span>
+                      )}
                     </div>
+
                     <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/90 leading-relaxed mb-6 sm:mb-8 italic">
                       "{activeItem.feedback}"
                     </p>
-                    <div>
-                      <p className="font-display text-lg sm:text-xl uppercase font-semibold text-foreground">
-                        {activeItem.name}
-                      </p>
-                      <p className="font-body text-sm text-muted-foreground">
-                        {activeItem.role}
-                        {activeItem.company ? ` • ${activeItem.company}` : ""}
-                      </p>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-5 border-t border-border/60">
+                      <div>
+                        <p className="font-display text-lg sm:text-xl uppercase font-semibold text-foreground">
+                          {activeItem.name}
+                        </p>
+                        <p className="font-body text-sm text-muted-foreground">
+                          {activeItem.role}
+                          {activeItem.company ? ` • ${activeItem.company}` : ""}
+                        </p>
+                      </div>
+
+                      {activeItem.reviewUrl && (
+                        <a
+                          href={activeItem.reviewUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-primary/40 bg-primary/10 hover:bg-primary hover:text-primary-foreground text-foreground text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-200 group/btn self-start sm:self-auto shadow-sm"
+                          title="Open original verified review"
+                        >
+                          <ShieldCheck className="w-3.5 h-3.5 text-primary group-hover/btn:text-primary-foreground transition-colors" />
+                          <span>{getReviewLabel(activeItem.reviewUrl)}</span>
+                          <ExternalLink className="w-3 h-3 text-primary group-hover/btn:text-primary-foreground transition-colors" />
+                        </a>
+                      )}
                     </div>
                   </>
                 ) : (
