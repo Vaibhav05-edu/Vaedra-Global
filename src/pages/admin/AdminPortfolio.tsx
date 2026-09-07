@@ -17,10 +17,13 @@ import {
   Briefcase,
   Eye,
   Info,
+  Loader2,
+  Globe,
 } from "lucide-react";
 import {
   usePortfolioProjects,
   ProjectDetail,
+  compressImage,
 } from "@/lib/portfolioStore";
 import { ProjectDetailModal } from "@/components/ProjectDetailModal";
 import { Button } from "@/components/ui/button";
@@ -65,6 +68,9 @@ export const AdminPortfolio: React.FC = () => {
   const [timeline, setTimeline] = useState("3 Months");
   const [tagline, setTagline] = useState("");
   const [description, setDescription] = useState("");
+  const [liveUrl, setLiveUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCompressingImages, setIsCompressingImages] = useState(false);
 
   // Multi-image management
   const [coverImage, setCoverImage] = useState(project1);
@@ -91,6 +97,9 @@ export const AdminPortfolio: React.FC = () => {
     setTimeline("3 Months");
     setTagline("");
     setDescription("");
+    setLiveUrl("");
+    setIsSubmitting(false);
+    setIsCompressingImages(false);
     setCoverImage(project1);
     setImageList([project1]);
     setCustomImageUrl("");
@@ -119,6 +128,9 @@ export const AdminPortfolio: React.FC = () => {
     setTimeline(proj.timeline || "3 Months");
     setTagline(proj.tagline || "");
     setDescription(proj.description || "");
+    setLiveUrl(proj.liveUrl || "");
+    setIsSubmitting(false);
+    setIsCompressingImages(false);
 
     const allImages = proj.images && proj.images.length > 0 ? proj.images : [proj.image];
     setImageList(allImages);
@@ -138,38 +150,46 @@ export const AdminPortfolio: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // Image Upload handler (supports multiple files)
-  const handleMultipleFilesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Image Upload handler with client-side compression
+  const handleMultipleFilesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const fileArray = Array.from(files);
-    let loadedCount = 0;
-    const newImages: string[] = [];
+    setIsCompressingImages(true);
+    const toastId = toast.loading(`Optimizing ${files.length} screenshot(s)...`);
 
-    fileArray.forEach((file) => {
-      if (file.size > 3 * 1024 * 1024) {
-        toast.error(`"${file.name}" exceeds 3MB limit.`);
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          const url = event.target.result as string;
-          newImages.push(url);
-          loadedCount++;
-          if (loadedCount === fileArray.length) {
-            setImageList((prev) => {
-              const merged = [...prev, ...newImages];
-              if (!coverImage && merged.length > 0) setCoverImage(merged[0]);
-              return merged;
-            });
-            toast.success(`Added ${newImages.length} image(s) to gallery.`);
-          }
+    try {
+      const fileArray = Array.from(files);
+      const compressedImages: string[] = [];
+
+      for (const file of fileArray) {
+        if (file.size > 15 * 1024 * 1024) {
+          toast.error(`"${file.name}" is over 15MB. Please choose an image under 15MB.`);
+          continue;
         }
-      };
-      reader.readAsDataURL(file);
-    });
+        const optimized = await compressImage(file, 1600, 1600, 0.82);
+        if (optimized) {
+          compressedImages.push(optimized);
+        }
+      }
+
+      if (compressedImages.length > 0) {
+        setImageList((prev) => {
+          const merged = [...prev, ...compressedImages];
+          if (!coverImage && merged.length > 0) setCoverImage(merged[0]);
+          return merged;
+        });
+        toast.success(`Optimized and added ${compressedImages.length} image(s) to gallery.`, { id: toastId });
+      } else {
+        toast.dismiss(toastId);
+      }
+    } catch (err: any) {
+      console.error("Image optimization error:", err);
+      toast.error("Failed to process images: " + (err?.message || "Unknown error"), { id: toastId });
+    } finally {
+      setIsCompressingImages(false);
+      e.target.value = "";
+    }
   };
 
   const handleAddCustomUrl = () => {
@@ -210,7 +230,7 @@ export const AdminPortfolio: React.FC = () => {
     setImageList(copy);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -218,52 +238,61 @@ export const AdminPortfolio: React.FC = () => {
       return;
     }
 
-    if (imageList.length === 0) {
-      toast.error("Please include at least one project screenshot or image.");
-      return;
+    // Ensure at least one image with graceful fallback to project1
+    const effectiveImages = imageList.length > 0 ? imageList : [project1];
+    const effectiveCover = coverImage || effectiveImages[0];
+
+    setIsSubmitting(true);
+
+    try {
+      const deliverables = deliverablesText
+        .split("\n")
+        .map((d) => d.trim())
+        .filter(Boolean);
+
+      const techStack = techStackText
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+      const metrics = [
+        { label: metric1Label.trim() || "Active Users", value: metric1Value.trim() || "100K+" },
+        { label: metric2Label.trim() || "Client Satisfaction", value: metric2Value.trim() || "99%" },
+        { label: metric3Label.trim() || "Performance", value: metric3Value.trim() || "Top Tier" },
+      ];
+
+      const projectPayload: Omit<ProjectDetail, "id"> & { id?: string } = {
+        title: title.trim(),
+        category: category.trim() || "Digital Engineering",
+        year: year.trim() || new Date().getFullYear().toString(),
+        client: client.trim() || "Vaedra Client Partner",
+        timeline: timeline.trim() || "3 Months",
+        tagline: tagline.trim() || `${title.trim()} - High performance digital solution.`,
+        description: description.trim() || `${title.trim()} custom development and design showcase by Vaedra Global.`,
+        image: effectiveCover,
+        images: effectiveImages,
+        deliverables: deliverables.length > 0 ? deliverables : ["Custom Software Architecture", "UI/UX Interface Design"],
+        techStack: techStack.length > 0 ? techStack : ["React", "TypeScript", "Tailwind CSS"],
+        metrics,
+        liveUrl: liveUrl.trim() || undefined,
+      };
+
+      if (editingProjectId) {
+        updatePortfolioProject(editingProjectId, projectPayload);
+        toast.success(`Project "${title}" updated successfully!`);
+      } else {
+        addPortfolioProject(projectPayload);
+        toast.success(`Project "${title}" published to Portfolio!`);
+      }
+
+      setIsModalOpen(false);
+      resetForm();
+    } catch (error: any) {
+      console.error("Error publishing portfolio project:", error);
+      toast.error("Failed to save project: " + (error?.message || "Storage error. Your form data is preserved."));
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const deliverables = deliverablesText
-      .split("\n")
-      .map((d) => d.trim())
-      .filter(Boolean);
-
-    const techStack = techStackText
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
-
-    const metrics = [
-      { label: metric1Label.trim() || "Active Users", value: metric1Value.trim() || "100K+" },
-      { label: metric2Label.trim() || "Client Satisfaction", value: metric2Value.trim() || "99%" },
-      { label: metric3Label.trim() || "Performance", value: metric3Value.trim() || "Top Tier" },
-    ];
-
-    const projectPayload = {
-      title: title.trim(),
-      category: category.trim() || "Digital Engineering",
-      year: year.trim() || new Date().getFullYear().toString(),
-      client: client.trim() || "Vaedra Client Partner",
-      timeline: timeline.trim() || "3 Months",
-      tagline: tagline.trim() || `${title.trim()} - High performance digital solution.`,
-      description: description.trim() || `${title.trim()} custom development and design showcase by Vaedra Global.`,
-      image: coverImage || imageList[0],
-      images: imageList,
-      deliverables: deliverables.length > 0 ? deliverables : ["Custom Software Architecture", "UI/UX Interface Design"],
-      techStack: techStack.length > 0 ? techStack : ["React", "TypeScript", "Tailwind CSS"],
-      metrics,
-    };
-
-    if (editingProjectId) {
-      updatePortfolioProject(editingProjectId, projectPayload);
-      toast.success(`Project "${title}" updated successfully!`);
-    } else {
-      addPortfolioProject(projectPayload);
-      toast.success(`Project "${title}" published to Portfolio!`);
-    }
-
-    setIsModalOpen(false);
-    resetForm();
   };
 
   const handleDelete = (id: string, projTitle: string) => {
@@ -570,6 +599,27 @@ export const AdminPortfolio: React.FC = () => {
                         className="bg-background border-border"
                       />
                     </div>
+
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-mono text-muted-foreground uppercase flex items-center gap-1.5">
+                          <Globe className="w-3.5 h-3.5 text-primary" />
+                          Live Project URL (Optional)
+                        </label>
+                        <span className="text-[10px] font-mono text-muted-foreground">
+                          Website, web app, or App Store link
+                        </span>
+                      </div>
+                      <Input
+                        value={liveUrl}
+                        onChange={(e) => setLiveUrl(e.target.value)}
+                        placeholder="https://example.com or https://apps.apple.com/..."
+                        className="bg-background border-border font-mono text-xs sm:text-sm"
+                      />
+                      <p className="text-[10px] font-mono text-muted-foreground/70">
+                        When provided, an interactive "Visit Live Project" button appears on the case study showcase.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -848,15 +898,31 @@ export const AdminPortfolio: React.FC = () => {
                     type="button"
                     variant="outline"
                     onClick={() => setIsModalOpen(false)}
+                    disabled={isSubmitting}
                     className="border-border text-foreground hover:bg-secondary text-xs uppercase tracking-wider font-display"
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs uppercase tracking-wider font-display font-bold shadow-md"
+                    disabled={isSubmitting || isCompressingImages}
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs uppercase tracking-wider font-display font-bold shadow-md min-w-[140px]"
                   >
-                    {editingProjectId ? "Save Changes" : "Publish Project"}
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin" />
+                        Publishing...
+                      </>
+                    ) : isCompressingImages ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin" />
+                        Optimizing...
+                      </>
+                    ) : editingProjectId ? (
+                      "Save Changes"
+                    ) : (
+                      "Publish Project"
+                    )}
                   </Button>
                 </div>
               </form>
