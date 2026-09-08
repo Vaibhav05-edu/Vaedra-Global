@@ -23,6 +23,7 @@ import {
 import {
   usePortfolioProjects,
   ProjectDetail,
+  uploadPortfolioImage,
   compressImage,
 } from "@/lib/portfolioStore";
 import { ProjectDetailModal } from "@/components/ProjectDetailModal";
@@ -150,42 +151,43 @@ export const AdminPortfolio: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // Image Upload handler with client-side compression
+  // Image Upload handler with Supabase Storage upload & client compression
   const handleMultipleFilesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
     setIsCompressingImages(true);
-    const toastId = toast.loading(`Optimizing ${files.length} screenshot(s)...`);
+    const toastId = toast.loading(`Uploading and optimizing ${files.length} screenshot(s)...`);
 
     try {
       const fileArray = Array.from(files);
-      const compressedImages: string[] = [];
+      const uploadedImages: string[] = [];
 
       for (const file of fileArray) {
         if (file.size > 15 * 1024 * 1024) {
           toast.error(`"${file.name}" is over 15MB. Please choose an image under 15MB.`);
           continue;
         }
-        const optimized = await compressImage(file, 1600, 1600, 0.82);
-        if (optimized) {
-          compressedImages.push(optimized);
+        const uploadedUrl = await uploadPortfolioImage(file, "project");
+        if (uploadedUrl) {
+          uploadedImages.push(uploadedUrl);
         }
       }
 
-      if (compressedImages.length > 0) {
+      if (uploadedImages.length > 0) {
         setImageList((prev) => {
-          const merged = [...prev, ...compressedImages];
+          const merged = [...prev, ...uploadedImages];
           if (!coverImage && merged.length > 0) setCoverImage(merged[0]);
           return merged;
         });
-        toast.success(`Optimized and added ${compressedImages.length} image(s) to gallery.`, { id: toastId });
+        toast.success(`Uploaded ${uploadedImages.length} image(s) to gallery.`, { id: toastId });
       } else {
         toast.dismiss(toastId);
       }
-    } catch (err: any) {
-      console.error("Image optimization error:", err);
-      toast.error("Failed to process images: " + (err?.message || "Unknown error"), { id: toastId });
+    } catch (err: unknown) {
+      console.error("Image upload error:", err);
+      const errMsg = err instanceof Error ? err.message : "Unknown error";
+      toast.error("Failed to process images: " + errMsg, { id: toastId });
     } finally {
       setIsCompressingImages(false);
       e.target.value = "";
@@ -287,9 +289,10 @@ export const AdminPortfolio: React.FC = () => {
 
       setIsModalOpen(false);
       resetForm();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error publishing portfolio project:", error);
-      toast.error("Failed to save project: " + (error?.message || "Storage error. Your form data is preserved."));
+      const errMsg = error instanceof Error ? error.message : "Storage error. Your form data is preserved.";
+      toast.error("Failed to save project: " + errMsg);
     } finally {
       setIsSubmitting(false);
     }

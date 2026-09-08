@@ -44,6 +44,69 @@ export type Database = {
         }
         Relationships: []
       }
+      portfolio: {
+        Row: {
+          id: string
+          title: string
+          category: string
+          year: string
+          image: string
+          images: Json
+          tagline: string | null
+          description: string | null
+          client: string | null
+          timeline: string | null
+          deliverables: Json
+          tech_stack: Json
+          metrics: Json
+          display_order: number
+          live_url: string | null
+          is_published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          title: string
+          category: string
+          year: string
+          image: string
+          images?: Json
+          tagline?: string | null
+          description?: string | null
+          client?: string | null
+          timeline?: string | null
+          deliverables?: Json
+          tech_stack?: Json
+          metrics?: Json
+          display_order?: number
+          live_url?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          category?: string
+          year?: string
+          image?: string
+          images?: Json
+          tagline?: string | null
+          description?: string | null
+          client?: string | null
+          timeline?: string | null
+          deliverables?: Json
+          tech_stack?: Json
+          metrics?: Json
+          display_order?: number
+          live_url?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
