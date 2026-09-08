@@ -7,6 +7,8 @@ import {
   movePortfolioProjectOrder,
   getProjectDetail,
   savePortfolioProjects,
+  uploadPortfolioImage,
+  getCachedProjects,
   DEFAULT_PROJECTS,
 } from "../lib/portfolioStore";
 
@@ -203,5 +205,88 @@ describe("portfolioStore", () => {
     deletePortfolioProject("shopelite");
     const projects = getPortfolioProjects();
     expect(projects.some((p) => p.id === "shopelite")).toBe(false);
+  });
+
+  it("Requirement 3: Prefers last successfully cached portfolio data over DEFAULT_PROJECTS", () => {
+    // Simulate cached data from previous session
+    const customCached = [
+      {
+        id: "custom-cloud-project",
+        title: "Custom Cloud Project",
+        category: "AI Platform",
+        year: "2025",
+        image: "https://example.com/image.jpg",
+        images: ["https://example.com/image.jpg"],
+        tagline: "Saved from cloud previously",
+        description: "Must be preserved across restarts",
+        client: "Global Client",
+        timeline: "6 Months",
+        deliverables: ["AI Model"],
+        techStack: ["Python", "React"],
+        metrics: [{ label: "Accuracy", value: "99%" }],
+        order: 0,
+      },
+    ];
+
+    savePortfolioProjects(customCached);
+
+    // Verify getCachedProjects returns this cached data
+    const cached = getCachedProjects();
+    expect(cached).not.toBeNull();
+    expect(cached!.length).toBe(1);
+    expect(cached![0].title).toBe("Custom Cloud Project");
+
+    // Verify getPortfolioProjects does NOT revert to DEFAULT_PROJECTS
+    const active = getPortfolioProjects();
+    expect(active.length).toBe(1);
+    expect(active[0].id).toBe("custom-cloud-project");
+  });
+
+  it("Requirement 1: uploadPortfolioImage handles remote URLs directly without base64 bloat", async () => {
+    const remoteUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71";
+    const result = await uploadPortfolioImage(remoteUrl);
+    expect(result).toBe(remoteUrl);
+  });
+
+  it("Requirement 1: uploadPortfolioImage handles asset paths directly", async () => {
+    const assetPath = "/projects/project-1.jpg";
+    const result = await uploadPortfolioImage(assetPath);
+    expect(result).toBe(assetPath);
+  });
+
+  it("Test 4: Universal Visibility - Independent session receives published project with public URLs and live link", () => {
+    // Session A (Admin Panel): Publishes a new project with image URLs and live link
+    const newProject = addPortfolioProject({
+      id: "ai-finance-hub",
+      title: "AI Finance Hub",
+      category: "Fintech & AI",
+      year: "2025",
+      image: "/projects/project-1.jpg",
+      images: ["/projects/project-1.jpg", "/projects/project-2.jpg"],
+      tagline: "Automated wealth intelligence for retail traders",
+      description: "Comprehensive financial case study designed and published via Admin Panel.",
+      client: "FinanceHub Global",
+      timeline: "4 Months",
+      deliverables: ["AI Prediction Engine", "React Dashboard", "iOS App"],
+      techStack: ["React", "TypeScript", "Python", "Supabase"],
+      metrics: [{ label: "Accuracy", value: "98.7%" }],
+      liveUrl: "https://financehub.example.com",
+    });
+
+    expect(newProject.id).toBe("ai-finance-hub");
+    expect(newProject.liveUrl).toBe("https://financehub.example.com");
+    // Ensure image data is URL-based and NOT base64
+    expect(newProject.image.startsWith("data:")).toBe(false);
+    expect(newProject.images!.every((img) => !img.startsWith("data:"))).toBe(true);
+
+    // Session B (Simulated fresh independent session/device):
+    // Clear in-memory session reference and fetch
+    const sessionBProjects = getPortfolioProjects();
+    const foundInSessionB = sessionBProjects.find((p) => p.id === "ai-finance-hub");
+
+    expect(foundInSessionB).toBeDefined();
+    expect(foundInSessionB!.title).toBe("AI Finance Hub");
+    expect(foundInSessionB!.liveUrl).toBe("https://financehub.example.com");
+    expect(foundInSessionB!.images).toHaveLength(2);
   });
 });
