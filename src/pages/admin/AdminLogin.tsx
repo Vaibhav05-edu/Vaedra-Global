@@ -20,7 +20,7 @@ const AdminLogin = () => {
 
   const from = (location.state as any)?.from?.pathname || "/admin";
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password) {
       toast.error("Please enter both email and password.");
@@ -28,17 +28,20 @@ const AdminLogin = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      const success = login(email, password);
-      setLoading(false);
-
-      if (success) {
+    try {
+      const result = await login(email, password);
+      if (result.success) {
         toast.success("Welcome back! Redirecting to dashboard...");
         navigate(from, { replace: true });
       } else {
-        toast.error("Invalid email or password. Please try again.");
+        toast.error(result.error || "Invalid email or password. Please try again.");
       }
-    }, 400);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Authentication error";
+      toast.error("Login failed: " + msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -136,6 +139,12 @@ const AdminLogin = () => {
             >
               {loading ? "Authenticating..." : "Access Dashboard"}
             </Button>
+
+            <div className="pt-2 border-t border-border/40 text-center">
+              <p className="text-[11px] text-muted-foreground font-mono">
+                Admin: <span className="text-primary font-semibold">admin@vaedra.global</span> / Password: <span className="text-primary font-semibold">vaedra2026</span>
+              </p>
+            </div>
           </form>
         </div>
 

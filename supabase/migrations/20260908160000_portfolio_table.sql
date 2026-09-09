@@ -1,5 +1,5 @@
 -- Migration: 20260908160000_portfolio_table.sql
--- Description: Create portfolio table, storage bucket, strict admin RLS policies, and realtime broadcast
+-- Description: Create portfolio table, storage bucket, strict admin RLS policies, admin auth provisioning, and realtime broadcast
 
 -- 1. Create Portfolio Table
 CREATE TABLE IF NOT EXISTS public.portfolio (
@@ -26,27 +26,86 @@ CREATE TABLE IF NOT EXISTS public.portfolio (
 -- 2. Enable Row Level Security
 ALTER TABLE public.portfolio ENABLE ROW LEVEL SECURITY;
 
--- 3. Security Helper Function for Admin Verification
--- Ensures write operations require verified administrator claims
+-- 3. Provision Admin Account in auth.users
+-- Ensures admin@vaedra.global has app_metadata role: 'admin', confirmed email, and password: 'vaedra2026'
+DO $$
+DECLARE
+  admin_uid UUID;
+BEGIN
+  -- Check if user already exists
+  SELECT id INTO admin_uid FROM auth.users WHERE email = 'admin@vaedra.global';
+
+  IF admin_uid IS NOT NULL THEN
+    UPDATE auth.users
+    SET 
+      encrypted_password = crypt('vaedra2026', gen_salt('bf')),
+      raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb) || '{"role": "admin", "provider": "email"}'::jsonb,
+      email_confirmed_at = coalesce(email_confirmed_at, now()),
+      updated_at = now()
+    WHERE id = admin_uid;
+  ELSE
+    INSERT INTO auth.users (
+      instance_id,
+      id,
+      aud,
+      role,
+      email,
+      encrypted_password,
+      email_confirmed_at,
+      raw_app_meta_data,
+      raw_user_meta_data,
+      created_at,
+      updated_at
+    ) VALUES (
+      '00000000-0000-0000-0000-000000000000',
+      gen_random_uuid(),
+      'authenticated',
+      'authenticated',
+      'admin@vaedra.global',
+      crypt('vaedra2026', gen_salt('bf')),
+      now(),
+      '{"provider": "email", "providers": ["email"], "role": "admin"}'::jsonb,
+      '{"name": "Vaedra Admin"}'::jsonb,
+      now(),
+      now()
+    );
+  END IF;
+
+  -- Also grant admin role to other company emails if present
+  UPDATE auth.users
+  SET 
+    raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb) || '{"role": "admin"}'::jsonb,
+    email_confirmed_at = coalesce(email_confirmed_at, now())
+  WHERE email IN ('vaedra@admin.com', 'parth@vaedra.global')
+     OR email LIKE '%@vaedra.global';
+END $$;
+
+-- 4. Security Helper Function for Admin Verification
+-- Strictly requires authenticated role AND app_metadata.role = 'admin' or authorized email
 CREATE OR REPLACE FUNCTION public.is_admin()
 RETURNS BOOLEAN AS $$
 BEGIN
   RETURN (
-    coalesce((auth.jwt() -> 'app_metadata' ->> 'role'), '') = 'admin'
-    OR coalesce((auth.jwt() -> 'user_metadata' ->> 'role'), '') = 'admin'
-    OR coalesce((auth.jwt() ->> 'email'), '') LIKE '%@vaedra.global'
-    OR coalesce((auth.jwt() ->> 'email'), '') IN ('admin@vaedra.global', 'vaedra@admin.com', 'parth@vaedra.global')
+    auth.role() = 'authenticated'
+    AND (
+      coalesce((auth.jwt() -> 'app_metadata' ->> 'role'), '') = 'admin'
+      OR coalesce((auth.jwt() -> 'user_metadata' ->> 'role'), '') = 'admin'
+      OR coalesce((auth.jwt() ->> 'email'), '') IN ('admin@vaedra.global', 'vaedra@admin.com', 'parth@vaedra.global')
+      OR coalesce((auth.jwt() ->> 'email'), '') LIKE '%@vaedra.global'
+    )
   );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 4. RLS Policies:
+-- 5. RLS Policies:
 -- (a) Public users across any device/browser can read published projects only
+DROP POLICY IF EXISTS "Public users can read published projects" ON public.portfolio;
 CREATE POLICY "Public users can read published projects"
   ON public.portfolio FOR SELECT
   USING (is_published = true);
 
 -- (b) Authenticated administrators can read all projects (including drafts/unpublished)
+DROP POLICY IF EXISTS "Admins can read all projects" ON public.portfolio;
 CREATE POLICY "Admins can read all projects"
   ON public.portfolio FOR SELECT
   TO authenticated
@@ -54,23 +113,26 @@ CREATE POLICY "Admins can read all projects"
 
 -- (c) Strict Admin Write Restrictions:
 -- Regular authenticated users without admin authorization CANNOT insert, update, or delete
+DROP POLICY IF EXISTS "Admins can insert portfolio projects" ON public.portfolio;
 CREATE POLICY "Admins can insert portfolio projects"
   ON public.portfolio FOR INSERT
   TO authenticated
   WITH CHECK (public.is_admin());
 
+DROP POLICY IF EXISTS "Admins can update portfolio projects" ON public.portfolio;
 CREATE POLICY "Admins can update portfolio projects"
   ON public.portfolio FOR UPDATE
   TO authenticated
   USING (public.is_admin())
   WITH CHECK (public.is_admin());
 
+DROP POLICY IF EXISTS "Admins can delete portfolio projects" ON public.portfolio;
 CREATE POLICY "Admins can delete portfolio projects"
   ON public.portfolio FOR DELETE
   TO authenticated
   USING (public.is_admin());
 
--- 5. Enable Supabase Realtime for Multi-Device Live Synchronization
+-- 6. Enable Supabase Realtime for Multi-Device Live Synchronization
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -81,37 +143,40 @@ BEGIN
   END IF;
 EXCEPTION
   WHEN OTHERS THEN
-    -- Fallback in case realtime publication is managed externally
     NULL;
 END $$;
 
--- 6. Create Storage Bucket for Portfolio Images (Publicly Readable CDN)
+-- 7. Create Storage Bucket for Portfolio Images (Publicly Readable CDN)
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('portfolio-images', 'portfolio-images', true)
 ON CONFLICT (id) DO UPDATE SET public = true;
 
 -- Storage RLS Policies
+DROP POLICY IF EXISTS "Public Read Access for Portfolio Images" ON storage.objects;
 CREATE POLICY "Public Read Access for Portfolio Images"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'portfolio-images');
 
+DROP POLICY IF EXISTS "Authenticated Admin Upload Access for Portfolio Images" ON storage.objects;
 CREATE POLICY "Authenticated Admin Upload Access for Portfolio Images"
   ON storage.objects FOR INSERT
   TO authenticated
   WITH CHECK (bucket_id = 'portfolio-images' AND public.is_admin());
 
+DROP POLICY IF EXISTS "Authenticated Admin Update Access for Portfolio Images" ON storage.objects;
 CREATE POLICY "Authenticated Admin Update Access for Portfolio Images"
   ON storage.objects FOR UPDATE
   TO authenticated
   USING (bucket_id = 'portfolio-images' AND public.is_admin())
   WITH CHECK (bucket_id = 'portfolio-images' AND public.is_admin());
 
+DROP POLICY IF EXISTS "Authenticated Admin Delete Access for Portfolio Images" ON storage.objects;
 CREATE POLICY "Authenticated Admin Delete Access for Portfolio Images"
   ON storage.objects FOR DELETE
   TO authenticated
   USING (bucket_id = 'portfolio-images' AND public.is_admin());
 
--- 7. Seed Default Projects (if not already present)
+-- 8. Seed Default Projects (if not already present)
 INSERT INTO public.portfolio (
   id, title, category, year, image, images, tagline, description, client, timeline, deliverables, tech_stack, metrics, display_order, live_url, is_published
 ) VALUES

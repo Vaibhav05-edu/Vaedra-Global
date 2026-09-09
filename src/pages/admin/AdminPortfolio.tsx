@@ -25,6 +25,8 @@ import {
   ProjectDetail,
   uploadPortfolioImage,
   compressImage,
+  syncProjectToSupabase,
+  deleteProjectFromSupabaseCloud,
 } from "@/lib/portfolioStore";
 import { ProjectDetailModal } from "@/components/ProjectDetailModal";
 import { Button } from "@/components/ui/button";
@@ -263,7 +265,13 @@ export const AdminPortfolio: React.FC = () => {
         { label: metric3Label.trim() || "Performance", value: metric3Value.trim() || "Top Tier" },
       ];
 
-      const projectPayload: Omit<ProjectDetail, "id"> & { id?: string } = {
+      const slugId =
+        editingProjectId ||
+        title.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-") ||
+        `project-${Date.now()}`;
+
+      const fullProject: ProjectDetail = {
+        id: slugId,
         title: title.trim(),
         category: category.trim() || "Digital Engineering",
         year: year.trim() || new Date().getFullYear().toString(),
@@ -277,14 +285,34 @@ export const AdminPortfolio: React.FC = () => {
         techStack: techStack.length > 0 ? techStack : ["React", "TypeScript", "Tailwind CSS"],
         metrics,
         liveUrl: liveUrl.trim() || undefined,
+        order: editingProjectId
+          ? (projects.find((p) => p.id === editingProjectId)?.order ?? 0)
+          : projects.length,
       };
 
+      const toastId = toast.loading(
+        editingProjectId ? "Saving changes to Supabase..." : "Publishing project to Supabase database..."
+      );
+
+      // Persist to Supabase directly first to guarantee live universal persistence
+      const syncResult = await syncProjectToSupabase(fullProject);
+
+      if (!syncResult.success) {
+        toast.error(
+          `Database sync failed: ${syncResult.error}. Form data preserved. (Please ensure you are logged in as Admin and migration 20260908160000_portfolio_table.sql is executed in the Supabase SQL Editor.)`,
+          { id: toastId, duration: 7000 }
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Cloud confirmed write! Now commit to local state and cache
       if (editingProjectId) {
-        updatePortfolioProject(editingProjectId, projectPayload);
-        toast.success(`Project "${title}" updated successfully!`);
+        updatePortfolioProject(editingProjectId, fullProject);
+        toast.success(`Project "${title}" updated and synced to database!`, { id: toastId });
       } else {
-        addPortfolioProject(projectPayload);
-        toast.success(`Project "${title}" published to Portfolio!`);
+        addPortfolioProject(fullProject);
+        toast.success(`Project "${title}" published live to database!`, { id: toastId });
       }
 
       setIsModalOpen(false);
@@ -298,10 +326,16 @@ export const AdminPortfolio: React.FC = () => {
     }
   };
 
-  const handleDelete = (id: string, projTitle: string) => {
+  const handleDelete = async (id: string, projTitle: string) => {
     if (window.confirm(`Are you sure you want to delete "${projTitle}" from portfolio?`)) {
+      const toastId = toast.loading(`Deleting "${projTitle}" from database...`);
+      const deleteResult = await deleteProjectFromSupabaseCloud(id);
+      if (!deleteResult.success) {
+        toast.error(`Failed to delete from database: ${deleteResult.error}`, { id: toastId });
+        return;
+      }
       deletePortfolioProject(id);
-      toast.success(`"${projTitle}" deleted.`);
+      toast.success(`"${projTitle}" deleted from database and portfolio.`, { id: toastId });
     }
   };
 
