@@ -395,6 +395,64 @@ export const getPortfolioProjects = (): ProjectDetail[] => {
 };
 
 /**
+ * Persists a single project directly to Supabase production database.
+ * Returns { success: true } or { success: false, error: string }.
+ * Used by Admin panel to guarantee cloud write before notifying the user.
+ */
+export const syncProjectToSupabase = async (
+  project: ProjectDetail
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const dbRow = {
+      id: project.id,
+      title: project.title,
+      category: project.category,
+      year: project.year,
+      image: project.image,
+      images: project.images && project.images.length > 0 ? project.images : [project.image],
+      tagline: project.tagline || null,
+      description: project.description || null,
+      client: project.client || null,
+      timeline: project.timeline || null,
+      deliverables: project.deliverables || [],
+      tech_stack: project.techStack || [],
+      metrics: project.metrics || [],
+      display_order: project.order ?? 0,
+      live_url: project.liveUrl || null,
+      is_published: true,
+      updated_at: new Date().toISOString(),
+    };
+
+    const { error } = await supabase.from("portfolio").upsert(dbRow);
+    if (error) {
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Network error syncing to database.";
+    return { success: false, error: msg };
+  }
+};
+
+/**
+ * Deletes a single project directly from Supabase production database.
+ */
+export const deleteProjectFromSupabaseCloud = async (
+  id: string
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const { error } = await supabase.from("portfolio").delete().eq("id", id);
+    if (error) {
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Network error deleting from database.";
+    return { success: false, error: msg };
+  }
+};
+
+/**
  * Asynchronously persists portfolio projects to Supabase production database.
  */
 export const persistToSupabaseCloud = async (projects: ProjectDetail[]): Promise<void> => {

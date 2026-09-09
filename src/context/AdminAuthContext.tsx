@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-interface AdminUser {
+export interface AdminUser {
+  id?: string;
   email: string;
   name: string;
   role: string;
@@ -8,9 +10,10 @@ interface AdminUser {
 
 interface AdminAuthContextType {
   isAuthenticated: boolean;
+  isLoading: boolean;
   user: AdminUser | null;
-  login: (email: string, pass: string) => boolean;
-  logout: () => void;
+  login: (email: string, pass: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
 }
 
 const AUTH_STORAGE_KEY = "vaedra_admin_session";
@@ -29,37 +32,151 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return session ? JSON.parse(session) : null;
   });
 
-  const login = (email: string, pass: string): boolean => {
-    // Configured admin credentials or any authorized company admin
-    const trimmedEmail = email.trim().toLowerCase();
-    const validEmails = ["admin@vaedra.global", "vaedra@admin.com", "parth@vaedra.global"];
-    
-    // Check credentials: standard demo password is "vaedra2026" or "admin123"
-    const isValid = (validEmails.includes(trimmedEmail) || trimmedEmail.endsWith("@vaedra.global")) && 
-                    (pass === "vaedra2026" || pass === "admin123" || pass === "vaedra");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    if (isValid || (trimmedEmail === "admin@vaedra.global" && pass === "vaedra2026")) {
-      const userData: AdminUser = {
+  useEffect(() => {
+    let isMounted = true;
+
+    // 1. Check existing Supabase session on initial mount
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        if (!isMounted) return;
+        if (session?.user) {
+          const email = session.user.email || "";
+          const role =
+            (session.user.app_metadata?.role as string) ||
+            (session.user.user_metadata?.role as string) ||
+            "admin";
+          const name =
+            (session.user.user_metadata?.name as string) ||
+            (email.split("@")[0].toUpperCase() === "ADMIN" ? "Vaedra Admin" : email.split("@")[0]);
+          const userData: AdminUser = {
+            id: session.user.id,
+            email,
+            name,
+            role: role === "admin" ? "Super Admin" : role,
+          };
+          setUser(userData);
+          setIsAuthenticated(true);
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
+        } else {
+          setUser(null);
+          setIsAuthenticated(false);
+          localStorage.removeItem(AUTH_STORAGE_KEY);
+        }
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (isMounted) setIsLoading(false);
+      });
+
+    // 2. Listen to real-time auth state changes (token refreshes, sign in, sign out)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!isMounted) return;
+      if (session?.user) {
+        const email = session.user.email || "";
+        const role =
+          (session.user.app_metadata?.role as string) ||
+          (session.user.user_metadata?.role as string) ||
+          "admin";
+        const name =
+          (session.user.user_metadata?.name as string) ||
+          (email.split("@")[0].toUpperCase() === "ADMIN" ? "Vaedra Admin" : email.split("@")[0]);
+        const userData: AdminUser = {
+          id: session.user.id,
+          email,
+          name,
+          role: role === "admin" ? "Super Admin" : role,
+        };
+        setUser(userData);
+        setIsAuthenticated(true);
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+      }
+      setIsLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const login = async (
+    email: string,
+    pass: string
+  ): Promise<{ success: boolean; error?: string }> => {
+    const trimmedEmail = email.trim().toLowerCase();
+
+    try {
+      // Authenticate with Supabase Auth to establish a real JWT session
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: trimmedEmail,
-        name: trimmedEmail.split("@")[0].toUpperCase() === "ADMIN" ? "Vaedra Admin" : trimmedEmail.split("@")[0],
-        role: "Super Admin",
+        password: pass,
+      });
+
+      if (error) {
+        let errorMsg = error.message;
+        if (error.message.toLowerCase().includes("invalid login credentials")) {
+          errorMsg =
+            "Invalid email or password. Please verify your credentials (admin@vaedra.global / vaedra2026) or ensure the Supabase migration script (20260908160000_portfolio_table.sql) has been run in the Supabase SQL Editor.";
+        }
+        return { success: false, error: errorMsg };
+      }
+
+      if (data?.user) {
+        const role =
+          (data.user.app_metadata?.role as string) ||
+          (data.user.user_metadata?.role as string) ||
+          "admin";
+        const name =
+          (data.user.user_metadata?.name as string) ||
+          (trimmedEmail.split("@")[0].toUpperCase() === "ADMIN"
+            ? "Vaedra Admin"
+            : trimmedEmail.split("@")[0]);
+
+        const userData: AdminUser = {
+          id: data.user.id,
+          email: data.user.email || trimmedEmail,
+          name,
+          role: role === "admin" ? "Super Admin" : role,
+        };
+
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
+        setUser(userData);
+        setIsAuthenticated(true);
+        return { success: true };
+      }
+
+      return { success: false, error: "Failed to establish administrator session." };
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Authentication network error.";
+      return {
+        success: false,
+        error: msg,
       };
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
-      setUser(userData);
-      setIsAuthenticated(true);
-      return true;
     }
-    return false;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.warn("Notice signing out from Supabase:", err);
+    }
     localStorage.removeItem(AUTH_STORAGE_KEY);
     setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
-    <AdminAuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AdminAuthContext.Provider value={{ isAuthenticated, isLoading, user, login, logout }}>
       {children}
     </AdminAuthContext.Provider>
   );
